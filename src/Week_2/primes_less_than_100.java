@@ -1,8 +1,6 @@
 package Week_2;
 
-import java.util.Scanner;
-
-public class prime_less_than_100 {
+public class primes_less_than_100 {
     public static void main(String[] args) {
         int N = 2;
         while (N < 100) {
