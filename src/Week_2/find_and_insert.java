@@ -2,7 +2,7 @@ package Week_2;
 
 import java.util.Scanner;
 
-public class find_and_add {
+public class find_and_insert {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int size = 0;
