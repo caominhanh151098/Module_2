@@ -27,7 +27,7 @@ public class max_in_matrix {
             System.out.println();
         }
 
-        int max = 0;
+        int max = matrix[0][0];
         int x = -1;
         int y = -1;
         for (int i = 0; i < height; i++) {

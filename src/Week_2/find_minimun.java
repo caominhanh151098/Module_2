@@ -17,8 +17,8 @@ public class find_minimun {
     }
 
     public static void minInArray(int[] array) {
-        int min = 0;
-        for (int i = 0; i < array.length; i++) {
+        int min = array[0];
+        for (int i = 1; i < array.length; i++) {
             if (min > array[i]) {
                 min = array[i];
             }
