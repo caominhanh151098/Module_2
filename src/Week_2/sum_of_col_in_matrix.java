@@ -5,11 +5,21 @@ import java.util.Scanner;
 public class sum_of_col_in_matrix {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Height matrix: ");
-        int col = Integer.parseInt(scanner.nextLine());
-        System.out.print("Enter Width matrix: ");
-        int row = Integer.parseInt(scanner.nextLine());
-
+        int col, row;
+        do {
+            System.out.print("Enter Col: ");
+            col = Integer.parseInt(scanner.nextLine());
+            if (col > 20 || col < 1) {
+                System.out.println("Error!");
+            }
+        } while (col > 20 || col < 1);
+        do {
+            System.out.print("Enter Row: ");
+            row = Integer.parseInt(scanner.nextLine());
+            if (row > 20 || row < 1) {
+                System.out.println("Error!");
+            }
+        } while (row > 20 || row < 1);
         int[][] matrix = new int[col][row];
 
         for (int i = 0; i < col; i++) {
