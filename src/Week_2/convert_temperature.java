@@ -18,14 +18,12 @@ public class convert_temperature {
                 case 1:
                     System.out.print("Enter Fahrenheit: ");
                     f = scanner.nextDouble();
-                    c = (5.0 / 9) * (f - 32);
-                    System.out.printf("Celsiuc: %.3f\n", c);
+                    celsiuc(f);
                     break;
                 case 2:
                     System.out.print("Enter Celsius: ");
                     c = scanner.nextDouble();
-                    f = (9.0 / 5) * c + 32;
-                    System.out.printf("Fahrenheit: %.3f\n", f);
+                    fahrenheit(c);
                     break;
                 case 0:
                     System.exit(0);
@@ -34,5 +32,17 @@ public class convert_temperature {
             }
 
         } while (true);
+
     }
+
+    public static void celsiuc(double f) {
+        double c = (5.0 / 9) * (f - 32);
+        System.out.printf("Celsiuc: %.3f\n", c);
+    }
+
+    public static void fahrenheit(double c) {
+        double f = (9.0 / 5) * c + 32;
+        System.out.printf("Fahrenheit: %.3f\n", f);
+    }
+
 }
