@@ -18,20 +18,18 @@ public class longest_in_string {
     }
 
     public static String longest(String str) {
-        int longest = 0;
         String stringResult = "";
         for (int i = 0; i < str.length() - 1; i++) {
             int index = 0;
             String testString = String.valueOf(str.charAt(i));
             for (int j = i + 1; j < str.length(); j++) {
-                if (testString.charAt(index) < str.charAt(j)) {
+                if (testString.charAt(index) <= str.charAt(j)) {
                     testString += str.charAt(j);
                     index++;
                 }
             }
-            if (testString.length() > longest) {
+            if (testString.length() > stringResult.length()) {
                 stringResult = testString;
-                longest = testString.length();
             }
         }
         return stringResult;
