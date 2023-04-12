@@ -25,7 +25,6 @@ public class longest_in_string_1 {
             if (testString.charAt(index) <= str.charAt(i)) {
                 testString += str.charAt(i);                        // 1 câu lệnh
                 index++;                                            // 1 câu lệnh
-                System.out.println(testString);                     // 1 câu lệnh
                 if (testString.length() > stringResult.length()) {
                     stringResult = testString;                      // 1 câu lệnh
                 }
@@ -40,7 +39,7 @@ public class longest_in_string_1 {
 
 /**************
  * Tính toán độ phức tạp của bài toán này:       *
- * 	1 vòng lặp * 6 câu lệnh = 6;                 *
+ * 	1 vòng lặp * 5 câu lệnh = 5;                 *
  *                                               *
  * 	T(n) = O(n)                                  *
  *  Độ phức tạp của bài toán là O(n)             *
