@@ -20,11 +20,8 @@ public class number_to_string {
             strNumber += "zero";
         else if (number < 10) {
             strNumber += to_10(number);
-        } else if (number < 16) {
-            strNumber += to_16(number);
         } else if (number < 20) {
-            int unit = number % 10;
-            strNumber += to_10(unit) + "teen";
+            strNumber += to_20(number);
         } else if (number < 100) {
             int unit = number % 10;
             strNumber += to_99(number) + "-" + to_10(unit);
@@ -32,7 +29,14 @@ public class number_to_string {
             int hundred = (int) number / 100;
             int ten_of = number % 100;
             int unit = number % 10;
-            strNumber += to_10(hundred) + " hundred " + to_99(ten_of) + "-" + to_10(unit);
+            if (ten_of < 20) {
+                strNumber += to_10(hundred) + " hundred " + to_20(ten_of);
+            } else if (ten_of == 20){
+                strNumber += to_10(hundred) + " hundred " + to_99(ten_of);
+            }
+            else {
+                strNumber += to_10(hundred) + " hundred " + to_99(ten_of) + "-" + to_10(unit);
+            }
         }
 
         System.out.printf("String: %s", strNumber);
@@ -62,7 +66,7 @@ public class number_to_string {
         return "";
     }
 
-    static String to_16(int number) {
+    static String to_20(int number) {
         switch (number) {
             case 10:
                 return "ten";
@@ -76,6 +80,14 @@ public class number_to_string {
                 return "fourteen";
             case 15:
                 return "fifteen";
+            case 16:
+                return "sixteen";
+            case 17:
+                return "seventeen";
+            case 18:
+                return "eighteen";
+            case 19:
+                return "nineteen";
         }
         return "";
     }
