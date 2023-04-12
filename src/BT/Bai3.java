@@ -2,7 +2,7 @@ package BT;
 
 public class Bai3 {
     public static void main(String[] args) {
-        int[] array = new int[5];
+        int[] array = new int[10];
         for (int i = 0; i < array.length; i++) {
             array[i] = (int) (Math.random() * 20 - 10);
             System.out.print(array[i] + "  ");
@@ -22,20 +22,5 @@ public class Bai3 {
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + "  ");
         }
-//        int sum = 0;
-//        long multi = 1;
-//        int count = 0;
-//        for (int i = 0; i < array.length; i++) {
-//            if (i % 2 == 0 && array[i] % 2 != 0) {
-//                sum += array[i];
-//                multi *= array[i];
-//                count++;
-//            }
-//        }
-//        double avg = sum / count;
-//        System.out.printf("SUM: %d\n", sum);
-//        System.out.printf("MULTI: %d\n", multi);
-//        System.out.printf("AVG: %f\n", avg);
-
     }
 }
