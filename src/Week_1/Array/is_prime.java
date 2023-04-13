@@ -1,4 +1,4 @@
-package Week_1.Loop;
+package Week_1.Array;
 
 import java.util.Scanner;
 
