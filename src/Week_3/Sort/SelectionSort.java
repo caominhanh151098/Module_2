@@ -1,4 +1,4 @@
-package Week_3;
+package Week_3.Sort;
 
 import java.util.Scanner;
 

@@ -1,8 +1,8 @@
-package Week_3;
+package Week_3.Sort;
 
 import java.util.Scanner;
 
-public class InsertionSort {
+public class InsertionSort_1 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter list size:");
@@ -23,29 +23,22 @@ public class InsertionSort {
     }
 
     public static void insertionSort(double[] arr) {
-        int i = 1;
-        while (i < arr.length) {
+        int i = arr.length - 2;
+        while (i >= 0) {
             double temp = arr[i];
             int pos = i;
-            System.out.printf("\ni at [%d]:\n", i);
-            System.out.println("Before:");
-            println(arr);
-            while (pos > 0) {
-                if (arr[pos - 1] > temp) {
-                    System.out.printf("Swap [%d] - [%d]\n", pos, pos - 1);
-                    arr[pos] = arr[pos - 1];
-                    pos--;
+            while (pos < arr.length - 1) {
+                if (temp > arr[pos + 1]) {
+                    arr[pos] = arr[pos + 1];
+                    pos++;
                 } else break;
-
             }
             arr[pos] = temp;
-            System.out.println("After:");
-            println(arr);
-            i++;
+            i--;
         }
     }
 
-    public static void println (double [] arr) {
+    public static void println(double[] arr) {
         for (double num : arr) {
             System.out.printf("%.2f\t", num);
         }

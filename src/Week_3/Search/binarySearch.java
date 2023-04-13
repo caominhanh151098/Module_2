@@ -1,4 +1,4 @@
-package Week_3;
+package Week_3.Search;
 
 public class binarySearch {
     static int[] list = {2, 4, 7, 10, 11, 45, 50, 59, 60, 66, 69, 70, 79};
