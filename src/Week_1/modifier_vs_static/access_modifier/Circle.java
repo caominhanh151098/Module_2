@@ -1,12 +1,10 @@
 package Week_1.modifier_vs_static.access_modifier;
 
 public class Circle {
-    private double radius;
-    private String color;
+    private double radius = 1.0;
+    private String color = "red";
 
     public Circle() {
-        radius = 1.0;
-        color = "red";
     }
 
     public Circle(double radius) {

@@ -1,5 +1,8 @@
 package Week_1.modifier_vs_static.access_modifier;
 
+
+import Week_1.modifier_vs_static.static_property.Car;
+
 public class TestCircle {
     public static void main(String[] args) {
         Circle myCircle_1 = new Circle();
