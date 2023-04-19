@@ -15,7 +15,7 @@ public class Main {
         double side3 = Double.parseDouble(scanner.nextLine());
 
         Triangle mTriangle = new Triangle(side1, side2, side3);
-        System.out.println(mTriangle.toString());
+        System.out.println(mTriangle);
 
         System.out.println("Do u want to change color and fill? (y/n)");
         char choice = scanner.nextLine().charAt(0);
@@ -33,7 +33,7 @@ public class Main {
             mTriangle.setFilled(filled);
         }
 
-        System.out.println(mTriangle.toString());
+        System.out.println(mTriangle);
         System.out.println(mTriangle.display());
 
     }
