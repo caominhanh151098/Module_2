@@ -1,4 +1,4 @@
-package Week_1.Class.rectangle;
+package Week_1._class.rectangle;
 
 public class Rectangle {
     double width;

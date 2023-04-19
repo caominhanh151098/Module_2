@@ -1,4 +1,4 @@
-package Week_1.Class.stop_watch;
+package Week_1._class.stop_watch;
 
 import java.util.Arrays;
 

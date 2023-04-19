@@ -1,4 +1,4 @@
-package Week_1.Class.fan;
+package Week_1._class.fan;
 
 public class Fan {
 
