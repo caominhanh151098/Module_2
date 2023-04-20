@@ -1,4 +1,4 @@
-package Week_2.interface_abstract.icomparable_2;
+package Week_2.interface_abstract.icomparator;
 
 import Week_2.inheritance.shape.Circle;
 
