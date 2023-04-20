@@ -1,16 +1,16 @@
 package bt.demo;
 
-public class HeavyTank extends Tank {
+public class MediumTank extends Tank {
     private double speed = 1;
     private double turretSpeed = 1;
     private double weight = 1;
-    private String type = "Heavy Tank";
+    private String type = "Medium Tank";
 
 
-    public HeavyTank() {
+    public MediumTank() {
     }
 
-    public HeavyTank(String name, String nation, int speed, int turretSpeed, double weight) {
+    public MediumTank(String name, String nation, int speed, int turretSpeed, double weight) {
         super(name, nation);
         this.speed = speed;
         this.turretSpeed = turretSpeed;

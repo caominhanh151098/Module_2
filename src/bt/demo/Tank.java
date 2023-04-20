@@ -1,8 +1,8 @@
 package bt.demo;
 
 public class Tank {
-    private String name;
-    private String nation;
+    private String name = "";
+    private String nation = "";
 
     public Tank() {
     }
@@ -28,4 +28,15 @@ public class Tank {
         this.nation = nation;
     }
 
+    public void move() {
+        System.out.println("Moving ...");
+    }
+
+    public void shot() {
+        System.out.println("Shotting...");
+    }
+
+    public String toString() {
+        return "Name: " + getName() + ", Nation: " + getNation();
+    }
 }

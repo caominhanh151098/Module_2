@@ -1,48 +1,52 @@
 package bt.demo;
 
-public class LightTank extends Tank{
-        private int speed = 1;
-        private double weight = 1;
-        private final String TYPE = "Light";
+public class LightTank extends Tank {
+    private double speed = 1;
+    private double turretSpeed = 1;
+    private double weight = 1;
+    private String type = "Light Tank";
 
-        public LightTank () {
-        }
 
-        public LightTank (String name, String nation, int speed, double weight) {
-                super(name,nation);
-                this.speed = speed;
-                this.weight = weight;
-        }
+    public LightTank() {
+    }
 
-        public int getSpeed() {
-                return speed;
-        }
+    public LightTank(String name, String nation, int speed, int turretSpeed, double weight) {
+        super(name, nation);
+        this.speed = speed;
+        this.turretSpeed = turretSpeed;
+        this.weight = weight;
+    }
 
-        public void setSpeed(int speed) {
-                this.speed = speed;
-        }
+    public double getSpeed() {
+        return speed;
+    }
 
-        public double getWeight() {
-                return weight;
-        }
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
 
-        public void setWeight(double weight) {
-                this.weight = weight;
-        }
+    public double getTurretSpeed() {
+        return turretSpeed;
+    }
 
-        public String getName() {
-                return super.getName();
-        }
+    public void setTurretSpeed(int turretSpeed) {
+        this.turretSpeed = turretSpeed;
+    }
 
-        public void setName(String name) {
-                super.setName(name);
-        }
+    public double getWeight() {
+        return weight;
+    }
 
-        public String getNation() {
-                return super.getNation();
-        }
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 
-        public void setNation(String nation) {
-                super.setNation(nation);
-        }
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Type: " + getType() + ", Speed: " + getSpeed() + ", Turret traverse speed: " + getTurretSpeed() + ", Weight: " + getWeight();
+    }
 }
