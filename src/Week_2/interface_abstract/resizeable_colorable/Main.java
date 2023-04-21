@@ -1,4 +1,4 @@
-package Week_2.interface_abstract.resizeable;
+package Week_2.interface_abstract.resizeable_colorable;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,6 +12,8 @@ public class Main {
             System.out.println(shape);
             ((Resizeable) shape).resize(200);
             System.out.println(shape);
+            if(shape instanceof Colorable)
+                ((Colorable) shape).howToColor();
         }
     }
 

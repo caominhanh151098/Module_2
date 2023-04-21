@@ -1,6 +1,6 @@
-package Week_2.interface_abstract.resizeable;
+package Week_2.interface_abstract.resizeable_colorable;
 
-public class Square extends Rectangle implements Resizeable{
+public class Square extends Rectangle implements Resizeable, Colorable{
     public Square() {
     }
 
@@ -37,5 +37,10 @@ public class Square extends Rectangle implements Resizeable{
     @Override
     public void resize(double percent) {
         setSide((getSide() * percent) / 100);
+    }
+
+    @Override
+    public void howToColor() {
+        System.out.println("Color all four sides");
     }
 }

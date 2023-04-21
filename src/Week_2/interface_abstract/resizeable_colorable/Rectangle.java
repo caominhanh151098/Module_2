@@ -1,4 +1,4 @@
-package Week_2.interface_abstract.resizeable;
+package Week_2.interface_abstract.resizeable_colorable;
 
 public class Rectangle extends Shape implements Resizeable {
     private double width = 1.0;

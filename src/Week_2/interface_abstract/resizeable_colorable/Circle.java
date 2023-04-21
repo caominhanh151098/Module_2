@@ -1,4 +1,4 @@
-package Week_2.interface_abstract.resizeable;
+package Week_2.interface_abstract.resizeable_colorable;
 
 public class Circle extends Shape implements Resizeable {
     private double radius = 1.0;

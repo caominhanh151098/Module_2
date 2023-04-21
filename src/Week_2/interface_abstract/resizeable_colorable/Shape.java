@@ -1,4 +1,4 @@
-package Week_2.interface_abstract.resizeable;
+package Week_2.interface_abstract.resizeable_colorable;
 
 public class Shape {
     private String color = "green";
