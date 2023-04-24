@@ -1,4 +1,4 @@
-package Week_2.clean_code.refactoring;
+package Week_2.clean_code.refactoring_calculator;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

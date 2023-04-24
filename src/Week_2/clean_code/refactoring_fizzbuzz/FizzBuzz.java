@@ -1,4 +1,4 @@
-package Week_2.clean_code.refactoring_2;
+package Week_2.clean_code.refactoring_fizzbuzz;
 
 public class FizzBuzz {
     public static String fizzBuzz(int number){

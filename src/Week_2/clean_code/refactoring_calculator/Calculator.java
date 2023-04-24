@@ -1,4 +1,4 @@
-package Week_2.clean_code.refactoring;
+package Week_2.clean_code.refactoring_calculator;
 
 public class Calculator {
     public static final char ADDITION = '+';

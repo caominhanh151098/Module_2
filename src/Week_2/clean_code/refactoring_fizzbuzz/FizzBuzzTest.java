@@ -1,4 +1,4 @@
-package Week_2.clean_code.refactoring_2;
+package Week_2.clean_code.refactoring_fizzbuzz;
 
 import org.junit.jupiter.api.Test;
 
