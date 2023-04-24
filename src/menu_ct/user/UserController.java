@@ -30,12 +30,13 @@ public class UserController {
 
     public void userView() throws IOException {
         getUserList();
-        System.out.println("_____________________________________________________________________________________________________");
+        System.out.println("-----------------------------------------------------------------");
         int i = 1;
         for (User user : userList) {
             System.out.printf("|\t%-4s|%s|%n", i, user.display());
             i++;
         }
+        System.out.println("-----------------------------------------------------------------");
     }
 
     public void addUser(String username, String password, String name, int role) throws IOException {

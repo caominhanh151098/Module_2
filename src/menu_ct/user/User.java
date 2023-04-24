@@ -68,4 +68,8 @@ public class User {
     public String display() {
         return String.format("\t%-20s|\t%-20s|\t%-4s", getUsername(), getName(), getRote());
     }
+
+    public String info() {
+        return String.format("Username: %-20s|Password: %-20s|Name: %-s|Role: %s", getUsername(), getName(), getRote());
+    }
 }
