@@ -1,4 +1,4 @@
-package com.codegym;
+package Week_2.clean_code.refactoring_cylinder;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
