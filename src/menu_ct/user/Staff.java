@@ -9,19 +9,57 @@ public class Staff extends Person{
     public Staff() {
     }
 
-    public Staff(long id, String username, String password, int rote, String name, int age,
-                 Date dob, String address, String email, long numPhone, int timekeeping, double dailySalary) {
-        super(id, username, password, rote, name, age, dob, address, email, numPhone);
-        this.timekeeping = timekeeping;
-        this.dailySalary = dailySalary;
+    public Staff setId(long id) {
+        super.setId(id);
+        return this;
+    }
+    public Staff setUsername(String username) {
+        super.setUsername(username);
+        return this;
+    }
+
+    public Staff setPassword(String password) {
+        super.setPassword(password);
+        return this;
+    }
+
+    public Staff setRote(int rote) {
+        super.setRote(rote);
+        return this;
+    }
+
+    public Staff setName(String name) {
+        super.setName(name);
+        return this;
+    }
+
+    public Staff setDob(Date dob) {
+        super.setDob(dob);
+        return this;
+    }
+
+    public Staff setAddress(String address) {
+        super.setAddress(address);
+        return this;
+    }
+
+    public Staff setEmail(String email) {
+        super.setEmail(email);
+        return this;
+    }
+
+    public Staff setNumPhone(long numPhone) {
+        super.setNumPhone(numPhone);
+        return this;
     }
 
     public int getTimekeeping() {
         return timekeeping;
     }
 
-    public void setTimekeeping(int timekeeping) {
+    public Staff setTimekeeping(int timekeeping) {
         this.timekeeping = timekeeping;
+        return this;
     }
     public void timekeeping() {
         this.timekeeping ++;
@@ -31,11 +69,16 @@ public class Staff extends Person{
         return dailySalary;
     }
 
-    public void setDailySalary(double dailySalary) {
+    public Staff setDailySalary(double dailySalary) {
         this.dailySalary = dailySalary;
+        return this;
     }
 
     public double getPaid() {
         return getDailySalary() * getTimekeeping();
+    }
+
+    public String display() {
+        return String.format(" %s| %-4s| %-10s", super.display(), getTimekeeping(), getDailySalary());
     }
 }

@@ -26,7 +26,6 @@ public class MainMenu implements ClearScreen{
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
-                    clearScreen();
                     UserView.user();
                     break;
                 case 2:

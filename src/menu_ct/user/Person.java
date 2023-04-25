@@ -3,7 +3,6 @@ package menu_ct.user;
 import java.util.Date;
 
 public class Person extends User {
-    private int age;
     private Date dob;
     private String address;
     private String email;
@@ -12,56 +11,48 @@ public class Person extends User {
     public Person() {
     }
 
-    public Person(long id, String username, String password, int rote, String name, int age, Date dob, String address, String email, long numPhone) {
-        super(id, username, password, name, rote);
-        this.age = age;
-        this.dob = dob;
-        this.address = address;
-        this.email = email;
-        this.numPhone = numPhone;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public Date getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public Person setDob(Date dob) {
         this.dob = dob;
+        return this;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public Person setAddress(String address) {
         this.address = address;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public Person setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public long getNumPhone() {
         return numPhone;
     }
 
-    public void setNumPhone(long numPhone) {
+    public Person setNumPhone(long numPhone) {
         this.numPhone = numPhone;
+        return this;
     }
 
     public String toString() {
-        return String.format("%s|\t%-20s|\t%-20s|\t%-20s|\t%-20s|\t%-20s", super.toString(), getName(), getAge(), getDob(), getAddress(), getEmail(), getNumPhone());
+        return String.format("%s|\t%-15s|\t%-30s|\t%-30s|\t%-15s", super.toString(), getDob(), getAddress(), getEmail(), getNumPhone());
     }
+
+    public String display() {
+        return String.format(" %s| %-20s| %-20s| %-4s", super.display(), getUsername(), getName(), getRote());
+    }
+
 }

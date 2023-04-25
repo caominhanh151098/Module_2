@@ -29,36 +29,45 @@ public class User {
         return id;
     }
 
+    public User setId(long id) {
+        this.id = id;
+        return this;
+    }
+
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public User setUsername(String username) {
         this.username = username;
+        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public int getRote() {
         return rote;
     }
 
-    public void setRote(int rote) {
+    public User setRote(int rote) {
         this.rote = rote;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public User setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String toString() {
@@ -66,7 +75,7 @@ public class User {
     }
 
     public String display() {
-        return String.format("\t%-20s|\t%-20s|\t%-4s", getUsername(), getName(), getRote());
+        return String.format(" %-20s| %-20s| %-4s", getUsername(), getName(), getRote());
     }
 
     public String info() {
