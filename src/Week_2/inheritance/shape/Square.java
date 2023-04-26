@@ -33,4 +33,8 @@ public class Square extends Rectangle {
     public String toString() {
         return "A Square with side= " + getWidth() + ", which is a subclass of " + super.toString();
     }
+    @Override
+    public String Draw() {
+        return "Draw Square with side= " + getWidth() + ", which is a subclass of " + super.toString();
+    }
 }

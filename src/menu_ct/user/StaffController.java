@@ -7,12 +7,12 @@ import java.util.Date;
 
 public class StaffController implements Convert {
     static int ROLE_STAFF = 1;
-    public static Staff staffInfo = new Staff();
-    public static ArrayList<Staff> staffList = new ArrayList<>();
+    static int MANAGER_STAFF = 0;
+    public static User userInfo = new User();
+    public static ArrayList<User> userList = new ArrayList<>();
 
     public void getStaffList() throws Exception {
-
-        staffList = new ArrayList<>();
+        userList = new ArrayList<>();
         String url = "D:\\Zero\\CodeGym\\Module_2\\src\\menu_ct\\data\\user.txt";
 
         BufferedReader reader = new BufferedReader(new FileReader(url));
@@ -20,19 +20,19 @@ public class StaffController implements Convert {
         String line = reader.readLine();
         while (line != null) {
             String[] user = line.split("/");
-            if (Integer.parseInt(user[5]) == ROLE_STAFF) {
-                long id = Long.parseLong(user[0]);
-                String username = user[1];
-                String password = user[2];
-                String name = user[3];
-                int role = Integer.parseInt(user[45]);
-                Date dob = covertDate(user[5]);
-                String address = user[6];
-                String email = user[7];
-                long numPhone = Long.parseLong(user[8]);
+            long id = Long.parseLong(user[0]);
+            String username = user[1];
+            String password = user[2];
+            String name = user[3];
+            int role = Integer.parseInt(user[4]);
+            Date dob = covertDate(user[5]);
+            String address = user[6];
+            String email = user[7];
+            long numPhone = Long.parseLong(user[8]);
+            if (role == ROLE_STAFF) {
                 int timekeeping = Integer.parseInt(user[9]);
                 int dailySalary = Integer.parseInt(user[10]);
-                staffInfo = new Staff()
+                userInfo = new Staff()
                         .setId(id)
                         .setUsername(username)
                         .setPassword(password)
@@ -44,20 +44,40 @@ public class StaffController implements Convert {
                         .setNumPhone(numPhone)
                         .setTimekeeping(timekeeping)
                         .setDailySalary(dailySalary);
-
+                userList.add(userInfo);
+            } else if (role == MANAGER_STAFF) {
+                double coefficientsSalary = Double.parseDouble((user[9]));
+                userInfo = new Manager()
+                        .setId(id)
+                        .setUsername(username)
+                        .setPassword(password)
+                        .setName(name)
+                        .setRote(role)
+                        .setDob(dob)
+                        .setAddress(address)
+                        .setEmail(email)
+                        .setNumPhone(numPhone)
+                        .setCoefficients_salary(coefficientsSalary);
+                userList.add(userInfo);
             }
-            staffList.add(staffInfo);
             line = reader.readLine();
         }
         reader.close();
+
     }
 
     public void staffView() throws Exception {
         getStaffList();
         System.out.println("-----------------------------------------------------------------");
         int i = 1;
-        for (User staff : staffList) {
-            System.out.printf("|\t%-4s|%s|%n", i, staff.display());
+        for (User user : userList) {
+            if (user instanceof Staff) {
+                System.out.printf("|\t%-4s|%s|%n", i,((Staff) user).display());
+            }
+            if (user instanceof Manager) {
+                System.out.printf("|\t%-4s|%s|%n", i,((Manager) user).display());
+            }
+
             i++;
         }
         System.out.println("-----------------------------------------------------------------");

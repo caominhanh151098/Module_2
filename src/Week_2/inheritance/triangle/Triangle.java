@@ -58,4 +58,9 @@ public class Triangle extends Shape {
     public String display() {
         return "Area: " + getArea() + ". Perimeter: " + getPerimeter();
     }
+    @Override
+    public String Draw() {
+        return "Draw Triangle with 3 sides:  " + getSide1() + ", " + getSide2() + ", " + getSide3()
+                + ". " + super.toString();
+    }
 }

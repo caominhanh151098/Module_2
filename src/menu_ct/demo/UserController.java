@@ -1,4 +1,6 @@
-package menu_ct.user;
+package menu_ct.demo;
+
+import menu_ct.user.User;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,7 +23,12 @@ public class UserController {
             String password = user[2];
             String name = user[3];
             int role = Integer.parseInt(user[4]);
-            userInfo = new User(id, username, password, name, role);
+            userInfo = new User()
+                    .setId(id)
+                    .setUsername(username)
+                    .setPassword(password)
+                    .setName(name)
+                    .setRote(role);
             userList.add(userInfo);
             line = reader.readLine();
         }
@@ -41,7 +48,11 @@ public class UserController {
 
     public void addUser(String username, String password, String name, int role) throws IOException {
         getUserList();
-        userInfo = new User(username, password, name, role);
+        userInfo = new User()
+                .setUsername(username)
+                .setPassword(password)
+                .setName(name)
+                .setRote(role);
         userList.add(userInfo);
         editData();
     }
@@ -53,8 +64,13 @@ public class UserController {
         String username = user[1];
         String password = nPassword;
         String name = nName;
-        int role = nRole;
-        userInfo = new User(id, username, password, name, role);
+        int role = nRole;;
+        userInfo = new User()
+                .setId(id)
+                .setUsername(username)
+                .setPassword(password)
+                .setName(name)
+                .setRote(role);
         userList.set(index - 1, userInfo);
         editData();
         userView();

@@ -1,14 +1,12 @@
 package menu_ct.view.user;
 
 import menu_ct.product.ProductController;
-import menu_ct.user.UserController;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class MainMenu implements ClearScreen{
     static Scanner scanner = new Scanner(System.in);
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         ProductController productController = new ProductController();
         int choice;
         clearScreen();
@@ -26,6 +24,7 @@ public class MainMenu implements ClearScreen{
             choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 1:
+                    clearScreen();
                     UserView.user();
                     break;
                 case 2:

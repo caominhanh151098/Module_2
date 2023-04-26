@@ -1,7 +1,7 @@
 package menu_ct.input;
 
 import menu_ct.user.User;
-import menu_ct.user.UserController;
+import menu_ct.demo.UserController;
 
 import java.util.ArrayList;
 import java.util.Scanner;

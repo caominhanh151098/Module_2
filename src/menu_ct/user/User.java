@@ -10,21 +10,6 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, String name, int rote) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.rote = rote;
-    }
-
-    public User(long id, String username, String password, String name, int rote) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.rote = rote;
-    }
-
     public long getId() {
         return id;
     }
@@ -80,5 +65,8 @@ public class User {
 
     public String info() {
         return String.format("Username: %-20s|Password: %-20s|Name: %-s|Role: %s", getUsername(), getName(), getRote());
+    }
+    public double salaryReceive() {
+        return 0;
     }
 }

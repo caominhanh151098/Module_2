@@ -1,6 +1,6 @@
 package Week_2.inheritance.shape;
 
-public class Shape {
+public abstract class Shape {
     private String color = "green";
     private boolean filled = true;
 
@@ -31,4 +31,6 @@ public class Shape {
     public String toString() {
         return "A Shape with color of " + color + " and " + (filled == true ? "filled" : "not filled");
     }
+
+    public abstract String Draw();
 }

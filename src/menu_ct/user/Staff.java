@@ -2,7 +2,7 @@ package menu_ct.user;
 
 import java.util.Date;
 
-public class Staff extends Person{
+public class Staff extends Employee {
     private int timekeeping = 0;
     private double dailySalary;
 
@@ -74,11 +74,11 @@ public class Staff extends Person{
         return this;
     }
 
-    public double getPaid() {
+    public double salaryReceive() {
         return getDailySalary() * getTimekeeping();
     }
 
     public String display() {
-        return String.format(" %s| %-4s| %-10s", super.display(), getTimekeeping(), getDailySalary());
+        return String.format("%s| %-4s| %-10s", super.display(), getTimekeeping(), getDailySalary());
     }
 }

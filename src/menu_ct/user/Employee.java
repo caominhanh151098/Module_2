@@ -1,21 +1,22 @@
 package menu_ct.user;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Person extends User {
+public class Employee extends User {
     private Date dob;
     private String address;
     private String email;
     private long numPhone;
 
-    public Person() {
+    public Employee() {
     }
 
-    public Date getDob() {
-        return dob;
+    public String getDob() {
+        return new SimpleDateFormat("dd/MM/yyyy").format(dob);
     }
 
-    public Person setDob(Date dob) {
+    public Employee setDob(Date dob) {
         this.dob = dob;
         return this;
     }
@@ -24,7 +25,7 @@ public class Person extends User {
         return address;
     }
 
-    public Person setAddress(String address) {
+    public Employee setAddress(String address) {
         this.address = address;
         return this;
     }
@@ -33,7 +34,7 @@ public class Person extends User {
         return email;
     }
 
-    public Person setEmail(String email) {
+    public Employee setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -42,7 +43,7 @@ public class Person extends User {
         return numPhone;
     }
 
-    public Person setNumPhone(long numPhone) {
+    public Employee setNumPhone(long numPhone) {
         this.numPhone = numPhone;
         return this;
     }
@@ -52,7 +53,7 @@ public class Person extends User {
     }
 
     public String display() {
-        return String.format(" %s| %-20s| %-20s| %-4s", super.display(), getUsername(), getName(), getRote());
+        return String.format("%s| %-15s| %-20s| %-25s| %-12s", super.display(), getDob(), getAddress(), getEmail(), getNumPhone());
     }
 
 }
