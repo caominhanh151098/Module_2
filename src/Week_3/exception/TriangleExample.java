@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class TriangleExample {
     public static void checkTriangle(int edge1, int edge2, int edge3) throws IllegalAccessException {
         if (edge1 < 0 || edge2 < 0 || edge3 < 0) {
-            throw new IllegalAccessException("Error! Có cạnh âm");
+            throw new Error("Error! Có cạnh âm");
         }
 
         if (edge1 > edge2 + edge3 || edge2 > edge1 + edge3 || edge3 > edge1 + edge2) {
