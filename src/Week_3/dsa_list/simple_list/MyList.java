@@ -3,7 +3,7 @@ package Week_3.dsa_list.simple_list;
 import java.util.Arrays;
 
 public class MyList<E> {
-    public int size = 0;
+    private int size = 0;
     private static final int DEFAULT_CAPACITY = 10;
     private Object elements[];
 
