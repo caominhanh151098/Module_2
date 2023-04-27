@@ -1,4 +1,4 @@
-package Week_4.regex.crawl_news.CrawlNews;
+package Week_4.regex.crawl_news;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
