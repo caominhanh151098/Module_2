@@ -1,11 +1,11 @@
-package menu_ct.product;
+package menu_ct.services;
 
-import menu_ct.user.User;
+import menu_ct.model.Product;
 
 import java.io.*;
 import java.util.ArrayList;
 
-public class ProductController {
+public class ProductService {
     public static Product productInfo = new Product();
 
     public static ArrayList<Product> productList = new ArrayList<>();

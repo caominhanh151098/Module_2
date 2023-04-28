@@ -1,6 +1,6 @@
 package menu_ct.demo;
 
-import menu_ct.user.User;
+import menu_ct.model.User;
 
 import java.io.*;
 import java.util.ArrayList;

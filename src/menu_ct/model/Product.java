@@ -1,4 +1,4 @@
-package menu_ct.product;
+package menu_ct.model;
 
 public class Product {
     private long idProduct = System.currentTimeMillis();

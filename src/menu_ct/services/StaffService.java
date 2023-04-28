@@ -1,17 +1,21 @@
-package menu_ct.user;
+package menu_ct.services;
+
+import menu_ct.model.Manager;
+import menu_ct.model.Staff;
+import menu_ct.model.User;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class StaffController implements Convert {
+public class StaffService implements Convert {
     static int ROLE_STAFF = 1;
     static int MANAGER_STAFF = 0;
     public static User userInfo = new User();
     public static ArrayList<User> userList = new ArrayList<>();
 
-    public void getStaffList() throws Exception {
+    public void getUserList() throws Exception {
         userList = new ArrayList<>();
         String url = "D:\\Zero\\CodeGym\\Module_2\\src\\menu_ct\\data\\user.txt";
 
@@ -66,18 +70,12 @@ public class StaffController implements Convert {
 
     }
 
-    public void staffView() throws Exception {
-        getStaffList();
+    public void showUser() throws Exception {
+        getUserList();
         System.out.println("-----------------------------------------------------------------");
         int i = 1;
         for (User user : userList) {
-            if (user instanceof Staff) {
-                System.out.printf("|\t%-4s|%s|%n", i,((Staff) user).display());
-            }
-            if (user instanceof Manager) {
-                System.out.printf("|\t%-4s|%s|%n", i,((Manager) user).display());
-            }
-
+                System.out.printf("|\t%-4s|%s|%n", i, user.display());
             i++;
         }
         System.out.println("-----------------------------------------------------------------");
@@ -85,7 +83,7 @@ public class StaffController implements Convert {
 
 //    public void addUser(String username, String password, String name, int role) throws Exception {
 //        getStaffList();
-////        staffInfo = new Staff(username, password, name, role);
+//        staffInfo = new Staff(username, password, name, role);
 //        staffList.add(staffInfo);
 //        editData();
 //    }

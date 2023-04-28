@@ -1,13 +1,13 @@
 package menu_ct.view.user;
 
-import menu_ct.product.ProductController;
+import menu_ct.services.ProductService;
 
 import java.util.Scanner;
 
 public class MainMenu implements ClearScreen{
     static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
-        ProductController productController = new ProductController();
+        ProductService productService = new ProductService();
         int choice;
         clearScreen();
 

@@ -1,6 +1,6 @@
 package menu_ct.input;
 
-import menu_ct.user.User;
+import menu_ct.model.User;
 import menu_ct.demo.UserController;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package menu_ct.user;
+package menu_ct.services;
 
 import java.util.Date;
 

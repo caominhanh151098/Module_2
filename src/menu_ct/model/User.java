@@ -1,4 +1,4 @@
-package menu_ct.user;
+package menu_ct.model;
 
 public class User {
     private long id = System.currentTimeMillis();

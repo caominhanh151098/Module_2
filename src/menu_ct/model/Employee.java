@@ -1,4 +1,4 @@
-package menu_ct.user;
+package menu_ct.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

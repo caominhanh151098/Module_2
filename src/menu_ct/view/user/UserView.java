@@ -1,7 +1,7 @@
 package menu_ct.view.user;
 
-import menu_ct.user.Staff;
-import menu_ct.user.StaffController;
+import menu_ct.model.Staff;
+import menu_ct.services.StaffService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class UserView implements ClearScreen {
 //    static UserController userController = new UserController();
 //    static ArrayList<User> userList;
-    static StaffController staffController = new StaffController();
+    static StaffService staffService = new StaffService();
     static ArrayList<Staff> staffList;
     static Scanner scanner = new Scanner(System.in);
 
@@ -17,7 +17,7 @@ public class UserView implements ClearScreen {
         int choice;
         do {
 //            userController.userView();
-            staffController.staffView();
+            staffService.showUser();
             System.out.printf("%n⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃%n");
             System.out.printf("⚃\t\t%-40s⚃%n", "--Menu quản lý Tài khoản--");
             System.out.printf("⚃\t\t%-40s⚃%n", "Chọn trong các mục");

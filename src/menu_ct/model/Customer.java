@@ -1,4 +1,6 @@
-package menu_ct.user;
+package menu_ct.model;
+
+import menu_ct.model.User;
 
 import java.util.Date;
 
