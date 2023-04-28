@@ -107,20 +107,6 @@ public class MyLinkedList<E> {
         return -1;
     }
 
-    public void printList() {
-        Node temp = head;
-        try {
-            System.out.printf("[%s", temp.data);
-            while (temp.next != null) {
-                temp = temp.next;
-                System.out.printf(", %s", temp.data);
-            }
-        } catch (NullPointerException npe) {
-            System.out.print("[");
-        }
-        System.out.println("]");
-    }
-
     public E get(int index) {
         Node temp = head;
         if (index > numNodes || index < 0) {
@@ -144,15 +130,35 @@ public class MyLinkedList<E> {
     }
 
     public void clear() {
-        Node temp = head;
-        while (temp.next != null) {
-            Node cache = temp.next;
-            temp.next = null;
-            temp.data = null;
-            temp = cache;
-        }
         head = null;
         numNodes = 0;
+    }
+
+    public void printList() {
+        System.out.println(this);
+    }
+
+    public Object[] toArray() {
+        Object[] newArray = new Object[size()];
+        int i = 0;
+        for (Node x = head; x != null; x = x.next)
+            newArray[i++] = x.data;
+        return newArray;
+    }
+
+    public String toString() {
+        Object[] array = this.toArray();
+        String result = "";
+        try {
+            result = "[" + array[0];
+            for (int i = 1; i < array.length; i++) {
+                result += "," + array[i];
+            }
+            result += "]";
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("[]");
+        }
+        return result;
     }
 
     private class Node {
@@ -165,6 +171,11 @@ public class MyLinkedList<E> {
 
         public Object getData() {
             return data;
+        }
+
+        @Override
+        public String toString() {
+            return data.toString();
         }
     }
 
