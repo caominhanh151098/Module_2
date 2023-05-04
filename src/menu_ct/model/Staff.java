@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Staff extends Employee {
     private int timekeeping = 0;
-    private double dailySalary;
+    private int dailySalary;
 
     public Staff() {
     }
@@ -13,6 +13,7 @@ public class Staff extends Employee {
         super.setId(id);
         return this;
     }
+
     public Staff setUsername(String username) {
         super.setUsername(username);
         return this;
@@ -48,7 +49,7 @@ public class Staff extends Employee {
         return this;
     }
 
-    public Staff setNumPhone(long numPhone) {
+    public Staff setNumPhone(String numPhone) {
         super.setNumPhone(numPhone);
         return this;
     }
@@ -61,23 +62,31 @@ public class Staff extends Employee {
         this.timekeeping = timekeeping;
         return this;
     }
+
     public void timekeeping() {
-        this.timekeeping ++;
+        this.timekeeping++;
     }
 
-    public double getDailySalary() {
+    public int getDailySalary() {
         return dailySalary;
     }
 
-    public Staff setDailySalary(double dailySalary) {
+    public Staff setDailySalary(int dailySalary) {
         this.dailySalary = dailySalary;
         return this;
     }
 
+    @Override
     public double salaryReceive() {
         return getDailySalary() * getTimekeeping();
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s/%s/%s", super.toString(), getTimekeeping(), getDailySalary());
+    }
+
+    @Override
     public String display() {
         return String.format("%s| %-4s| %-10s", super.display(), getTimekeeping(), getDailySalary());
     }

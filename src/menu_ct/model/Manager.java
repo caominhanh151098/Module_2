@@ -49,7 +49,7 @@ public class Manager extends Employee {
         return this;
     }
 
-    public Manager setNumPhone(long numPhone) {
+    public Manager setNumPhone(String numPhone) {
         super.setNumPhone(numPhone);
         return this;
     }
@@ -67,11 +67,17 @@ public class Manager extends Employee {
         return this;
     }
 
+    @Override
     public double salaryReceive() {
         return coefficients_salary * BASIC_SALARY;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s/%s", super.toString(), getCoefficients_salary());
+    }
+
     public String display() {
-        return String.format("%s| %-4s| %-10s", super.display(),"", getCoefficients_salary());
+        return String.format("%s| %-4s| %-10s", super.display(), "", getCoefficients_salary());
     }
 }

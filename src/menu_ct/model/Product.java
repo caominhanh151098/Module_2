@@ -29,40 +29,45 @@ public class Product {
         return idProduct;
     }
 
-    public void setIdProduct(long idProduct) {
+    public Product setIdProduct(long idProduct) {
         this.idProduct = idProduct;
+        return this;
     }
 
     public String getProductName() {
         return productName;
     }
 
-    public void setProductName(String productName) {
+    public Product setProductName(String productName) {
         this.productName = productName;
+        return this;
     }
 
     public String getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public Product setBrand(String brand) {
         this.brand = brand;
+        return this;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public Product setQuantity(int quantity) {
         this.quantity = quantity;
+        return this;
     }
 
     public int getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public Product setPrice(int price) {
         this.price = price;
+        return this;
     }
 
     public String toString() {

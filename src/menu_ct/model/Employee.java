@@ -7,13 +7,13 @@ public class Employee extends User {
     private Date dob;
     private String address;
     private String email;
-    private long numPhone;
+    private String numPhone;
 
     public Employee() {
     }
 
     public String getDob() {
-        return new SimpleDateFormat("dd/MM/yyyy").format(dob);
+        return new SimpleDateFormat("dd-MM-yyyy").format(dob);
     }
 
     public Employee setDob(Date dob) {
@@ -39,19 +39,19 @@ public class Employee extends User {
         return this;
     }
 
-    public long getNumPhone() {
+    public String getNumPhone() {
         return numPhone;
     }
 
-    public Employee setNumPhone(long numPhone) {
+    public Employee setNumPhone(String numPhone) {
         this.numPhone = numPhone;
         return this;
     }
-
+    @Override
     public String toString() {
-        return String.format("%s|\t%-15s|\t%-30s|\t%-30s|\t%-15s", super.toString(), getDob(), getAddress(), getEmail(), getNumPhone());
+        return String.format("%s/%s/%s/%s/%s", super.toString(), getDob(), getAddress(), getEmail(), getNumPhone());
     }
-
+    @Override
     public String display() {
         return String.format("%s| %-15s| %-20s| %-25s| %-12s", super.display(), getDob(), getAddress(), getEmail(), getNumPhone());
     }
