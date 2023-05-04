@@ -1,6 +1,4 @@
-package Week_4.dsa_stack.stack_linkedlist;
-
-import Week_4.dsa_stack.Queue;
+package Week_4.dsa_stack.queue_linkedlist_1;
 
 public class Main {
     public static void main(String[] args) {

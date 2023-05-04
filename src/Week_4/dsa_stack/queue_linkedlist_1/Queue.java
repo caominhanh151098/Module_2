@@ -1,4 +1,4 @@
-package Week_4.dsa_stack;
+package Week_4.dsa_stack.queue_linkedlist_1;
 
 public class Queue {
     private Node front;
@@ -28,6 +28,7 @@ public class Queue {
         } else front = temp.link;
         size--;
         return temp;
+
     }
 
     public void display() {
