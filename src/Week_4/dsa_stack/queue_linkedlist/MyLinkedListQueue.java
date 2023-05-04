@@ -39,5 +39,5 @@ public class MyLinkedListQueue {
             this.next = null;
         }
     }
-    
+
 }
