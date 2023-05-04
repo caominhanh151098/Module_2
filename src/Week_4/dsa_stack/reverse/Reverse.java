@@ -15,7 +15,7 @@ public class Reverse {
     }
 
     public static String reverseWord(String string) {
-        String[] wWord = string.split(" ");
+        String[] wWord = string.split("");
         Stack<String> wStack = new Stack<>();
         for (String word : wWord) {
             wStack.push(word);
@@ -23,7 +23,7 @@ public class Reverse {
         int i = 0;
         string = wStack.pop();
         while (!wStack.isEmpty()) {
-            string += " " + wStack.pop();
+            string += "" + wStack.pop();
         }
         return string;
     }
