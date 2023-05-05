@@ -28,7 +28,6 @@ public class Queue {
         } else front = temp.link;
         size--;
         return temp;
-
     }
 
     public void display() {
