@@ -2,16 +2,21 @@ package Week_4.dsa_stack.queue_array;
 
 public class Main {
     public static void main(String[] args) {
-        MyQueue myQueue = new MyQueue(10);
+        MyQueue queue = new MyQueue(4);
+        queue.enqueue(4);
+        queue.dequeue();
+        queue.enqueue(56);
+        queue.enqueue(2);
+        queue.enqueue(67);
+        queue.dequeue();
+        queue.dequeue();
+        queue.enqueue(24);
+        queue.dequeue();
+        queue.enqueue(98);
+        queue.enqueue(45);
+        queue.enqueue(23);
+        queue.enqueue(435);
 
-        myQueue.enqueue(1);
-        myQueue.enqueue(4);
-        myQueue.enqueue(5);
-        myQueue.enqueue(0);
-        myQueue.enqueue(6);
-        myQueue.dequeue();
-        myQueue.dequeue();
-
-        myQueue.display();
+        queue.display();
     }
 }
