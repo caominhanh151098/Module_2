@@ -33,14 +33,10 @@ public class Palindrome {
     public static boolean checkPalindrome(String string) {
         readByStack(string);
         readByQueue(string);
-//        System.out.println(stack_String.toString());
-//        System.out.println(queue_String.toString());
         for (int i = 0; i < stack_String.size(); i++) {
             String temp1 = (String) stack_String.pop();
             String temp2 = (String) queue_String.remove();
             if (!temp1.equals(temp2)) {
-                System.out.println(temp1);
-                System.out.println(temp2);
                 return false;
             }
         }

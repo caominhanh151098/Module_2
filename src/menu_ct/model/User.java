@@ -66,7 +66,9 @@ public class User {
     public String info() {
         return String.format("Username: %-20s|Password: %-20s|Name: %-s|Role: %s", getUsername(), getName(), getRote());
     }
+
     public double salaryReceive() {
         return 0;
     }
+
 }

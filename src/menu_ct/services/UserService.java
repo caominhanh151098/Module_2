@@ -1,8 +1,8 @@
 package menu_ct.services;
 
-import menu_ct.model.Manager;
-import menu_ct.model.Staff;
+import menu_ct.model.Admin;
 import menu_ct.model.User;
+import menu_ct.output.WriteFile;
 
 import java.io.*;
 import java.text.ParseException;
@@ -11,14 +11,12 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class UserService implements Convert {
-    static int ROLE_STAFF = 1;
-    static int MANAGER_STAFF = 0;
-    public static User userInfo = new User();
+    static String path = "data\\user.txt";
     public static ArrayList<User> userList = new ArrayList<>();
 
     public void getUserList() {
         userList = new ArrayList<>();
-        String url = "D:\\Zero\\CodeGym\\Module_2\\src\\menu_ct\\data\\user.txt";
+        String url = "data\\user.txt";
         try {
             BufferedReader reader = new BufferedReader(new FileReader(url));
 
@@ -34,14 +32,16 @@ public class UserService implements Convert {
                 String address = user[6];
                 String email = user[7];
                 String phoneNum = user[8];
-                if (role == ROLE_STAFF) {
-                    int timekeeping = Integer.parseInt(user[9]);
-                    int dailySalary = Integer.parseInt(user[10]);
-                    getStaffInfo(id, username, password, name, role, dob, address, email, phoneNum, timekeeping, dailySalary);
-                } else if (role == MANAGER_STAFF) {
-                    double coefficientsSalary = Double.parseDouble((user[9]));
-                    getManagerInfo(id, username, password, name, role, dob, address, email, phoneNum, coefficientsSalary);
-                }
+                User userInfo = new Admin()
+                        .setId(id)
+                        .setUsername(username)
+                        .setPassword(password)
+                        .setName(name)
+                        .setRote(role)
+                        .setDob(dob)
+                        .setAddress(address)
+                        .setEmail(email)
+                        .setNumPhone(phoneNum);
                 userList.add(userInfo);
                 line = reader.readLine();
             }
@@ -49,119 +49,34 @@ public class UserService implements Convert {
         } catch (FileNotFoundException e) {
             System.out.println("Error! Không thấy file data!");
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
-    public void showUser() {
+    public void addUser(User newUser) {
         getUserList();
-        System.out.println("-----------------------------------------------------------------");
-        int i = 1;
-        for (User user : userList) {
-            System.out.printf("|\t%-4s|%s|%n", i, user.display());
-            i++;
-        }
-        System.out.println("-----------------------------------------------------------------");
+        userList.add(newUser);
+        WriteFile.editData(userList, path);
     }
 
-    public void addUser(String username, String password, String name, int role, Date dob, String address, String email, String phoneNum) {
+    public void editUser(int index, User editUser) {
         getUserList();
-        if (role == ROLE_STAFF) {
-            long id = System.currentTimeMillis();
-            int timekeeping = 0;
-            int dailySalary = 40000;
-            getStaffInfo(id, username, password, name, role, dob, address, email, phoneNum, timekeeping, dailySalary);
-        } else if (role == MANAGER_STAFF) {
-            long id = System.currentTimeMillis();
-            double coefficientsSalary = 6.2;
-            getManagerInfo(id, username, password, name, role, dob, address, email, phoneNum, coefficientsSalary);
-        }
-        userList.add(userInfo);
-        editData();
+        userList.set(index - 1, editUser);
+        WriteFile.editData(userList, path);
     }
 
-    public void editStaff(int index, String password, String name, int role, Date dob,
-                          String address, String email, String phoneNum, int timekeeping, int dailySalary) {
-        getUserList();
-        String[] user = userList.get(index - 1).toString().split("/");
-        long id = Long.parseLong(user[0]);
-        String username = user[1];
-        getStaffInfo(id, username, password, name, role, dob, address, email, phoneNum, timekeeping, dailySalary);
-
-        userList.set(index - 1, userInfo);
-        editData();
-    }
-
-    public void editManager(int index, String password, String name, int role, Date dob,
-                            String address, String email, String phoneNum, double coefficientsSalary) {
-        getUserList();
-        String[] user = userList.get(index - 1).toString().split("/");
-        long id = Long.parseLong(user[0]);
-        String username = user[1];
-        getManagerInfo(id, username, password, name, role, dob, address, email, phoneNum, coefficientsSalary);
-
-        userList.set(index - 1, userInfo);
-        editData();
-    }
-
-    public void deleteUser(int index){
+    public void deleteUser(int index) {
         getUserList();
         userList.remove(index - 1);
-        editData();
+        WriteFile.editData(userList, path);
     }
 
-    public void editData() {
-        String url = "D:\\Zero\\CodeGym\\Module_2\\src\\menu_ct\\data\\user.txt";
 
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(url));
-            int i = 0;
-            while (i < userList.size()) {
-                writer.write(userList.get(i++).toString());
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Error! Không thấy file data");
-        }
-
-    }
 
     @Override
     public Date covertDate(String textDate) throws ParseException {
 
-            return new SimpleDateFormat("dd-MM-yyyy").parse(textDate);
+        return new SimpleDateFormat("dd-MM-yyyy").parse(textDate);
 
-    }
-
-    private void getStaffInfo(long id, String username, String password, String name, int role, Date dob,
-                              String address, String email, String phoneNum, int timekeeping, int dailySalary) {
-        userInfo = new Staff()
-                .setId(id)
-                .setUsername(username)
-                .setPassword(password)
-                .setName(name)
-                .setRote(role)
-                .setDob(dob)
-                .setAddress(address)
-                .setEmail(email)
-                .setNumPhone(phoneNum)
-                .setTimekeeping(timekeeping)
-                .setDailySalary(dailySalary);
-    }
-
-    private void getManagerInfo(long id, String username, String password, String name, int role, Date dob,
-                                String address, String email, String phoneNum, double coefficientsSalary) {
-        userInfo = new Manager()
-                .setId(id)
-                .setUsername(username)
-                .setPassword(password)
-                .setName(name)
-                .setRote(role)
-                .setDob(dob)
-                .setAddress(address)
-                .setEmail(email)
-                .setNumPhone(phoneNum)
-                .setCoefficients_salary(coefficientsSalary);
     }
 }

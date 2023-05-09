@@ -1,6 +1,7 @@
 package menu_ct.view.user;
 
 import menu_ct.input.InputData;
+import menu_ct.model.Admin;
 import menu_ct.model.User;
 import menu_ct.services.UserService;
 
@@ -8,9 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-public class UserView implements ClearScreen {
-    static int ROLE_STAFF = 1;
-    static int MANAGER_STAFF = 0;
+public class UserView {
     static UserService userService = new UserService();
     static ArrayList<User> userList;
     static Scanner scanner = new Scanner(System.in);
@@ -18,8 +17,9 @@ public class UserView implements ClearScreen {
     public static void user() {
         int choice;
         do {
-            clearScreen();
-            userService.showUser();
+            userService.getUserList();
+            ClearScreen.clearScreen();
+            showUser();
             System.out.printf("%n⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃%n");
             System.out.printf("⚃\t\t%-40s⚃%n", "--Menu quản lý Tài khoản--");
             System.out.printf("⚃\t\t%-40s⚃%n", "Chọn trong các mục");
@@ -29,25 +29,42 @@ public class UserView implements ClearScreen {
             System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 0: Quay lại");
             System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
             System.out.print("Enter number: ");
-            choice = Integer.parseInt(scanner.nextLine());
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                choice = -1;
+            }
             switch (choice) {
                 case 1:
-                    clearScreen(5);
+                    ClearScreen.clearScreen(5);
                     addUser();
                     break;
                 case 2:
-                    clearScreen(5);
+                    ClearScreen.clearScreen(5);
                     editUser();
                     break;
                 case 3:
-                    clearScreen(3);
+                    ClearScreen.clearScreen(3);
                     deleteUser();
                     break;
+                case 0:
+                    ClearScreen.clearScreen();
+                    break;
                 default:
-                    clearScreen();
                     System.out.println("Lỗi! Không nằm trong mục lục. Yêu cầu chọn lại:");
             }
         } while (choice != 0);
+    }
+
+    public static void showUser() {
+        userList = userService.userList;
+        System.out.println("-----------------------------------------------------------------");
+        int i = 1;
+        for (User user : userList) {
+            System.out.printf("|\t%-4s|%s|%n", i, user.display());
+            i++;
+        }
+        System.out.println("-----------------------------------------------------------------");
     }
 
     public static void addUser() {
@@ -59,17 +76,26 @@ public class UserView implements ClearScreen {
         String address = InputData.getAddress();
         String email = InputData.getEmail();
         String phoneNum = InputData.getPhoneNum();
+        User userInfo = new Admin()
+                .setUsername(username)
+                .setPassword(password)
+                .setName(name)
+                .setRote(role)
+                .setDob(dob)
+                .setAddress(address)
+                .setEmail(email)
+                .setNumPhone(phoneNum);
 
         System.out.printf("Bạn muốn tạo mới tài khoản này? Username: %s|Password: %s|Name: %s|Role: %s (y/n) : ",
                 username, password, name, role);
         if (InputData.choice()) {
-            userService.addUser(username, password, name, role, dob, address, email, phoneNum);
+            userService.addUser(userInfo);
         }
     }
 
     public static void editUser() {
-        System.out.print("Nhập STT Tài khoản cần sửa: ");
         userList = userService.userList;
+        System.out.print("Nhập STT Tài khoản cần sửa: ");
         int index = InputData.getIndex(userList);
         String password = InputData.getPassword();
         String name = InputData.getName();
@@ -78,32 +104,30 @@ public class UserView implements ClearScreen {
         String address = InputData.getAddress();
         String email = InputData.getEmail();
         String phoneNum = InputData.getPhoneNum();
-        int timekeeping = 0;
-        int dailySalary = 0;
-        double coefficientsSalary = 0;
-        if (role == ROLE_STAFF) {
-            timekeeping = InputData.getTimekepping();
-            dailySalary = InputData.getDailySalary();
-        } else if (role == MANAGER_STAFF) {
-            coefficientsSalary = InputData.getCoefficientsSalary();
-        }
 
         String username = userList.get(index - 1).getUsername();
+        Long id = userList.get(index - 1).getId();
+        User userInfo = new Admin()
+                .setId(id)
+                .setUsername(username)
+                .setPassword(password)
+                .setName(name)
+                .setRote(role)
+                .setDob(dob)
+                .setAddress(address)
+                .setEmail(email)
+                .setNumPhone(phoneNum);
         System.out.printf("Bạn muốn thay đổi thông tin Username: %s?%nPassword: %s|Name: %s|Role: %s | Date or birth: %s, " +
                         "Address: %s, Email: %s, Phone Number: %s(y/n)",
                 username, password, name, role, dob, address, email, phoneNum);
         if (InputData.choice()) {
-            if (role == ROLE_STAFF) {
-                userService.editStaff(index, password, name, role, dob, address, email, phoneNum, timekeeping, dailySalary);
-            } else if (role == MANAGER_STAFF) {
-                userService.editManager(index, password, name, role, dob, address, email, phoneNum, coefficientsSalary);
-            }
+            userService.editUser(index, userInfo);
         }
     }
 
     public static void deleteUser() {
-        System.out.print("Nhập STT Tài khoản muốn xóa: ");
         userList = userService.userList;
+        System.out.print("Nhập STT Tài khoản muốn xóa: ");
         int index = InputData.getIndex(userList);
 
         String username = userList.get(index - 1).getUsername();

@@ -7,7 +7,7 @@ import menu_ct.services.ProductService;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ProductView implements ClearScreen {
+public class ProductView {
     static ProductService productService = new ProductService();
     static ArrayList<Product> productsList;
     static Scanner scanner = new Scanner(System.in);
@@ -16,39 +16,54 @@ public class ProductView implements ClearScreen {
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
-            clearScreen();
-            productService.showProduct();
-            System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
-            System.out.println("⚃\t  --Menu quản lý SẢN PHẦM--\t\t\t⚃");
-            System.out.println("⚃\t\tChọn trong các mục:\t\t\t\t⚃");
-            System.out.println("⚃\t\tNhấn 1: Thêm Sản phẩm\t\t\t⚃");
-            System.out.println("⚃\t\tNhấn 2: Sửa  Sản phẩm\t\t\t⚃");
-            System.out.println("⚃\t\tNhấn 3: Xóa  Sản phẩm\t\t\t⚃");
-            System.out.println("⚃\t\tNhấn 0: Quay lại\t\t\t\t⚃");
-            System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
+            productService.getProductList();
+            ClearScreen.clearScreen();
+            showProduct();
+            System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
+            System.out.printf("⚃\t\t%-40s⚃%n", "--Menu quản lý Sản phẩm--");
+            System.out.printf("⚃\t\t%-40s⚃%n", "Chọn trong các mục");
+            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 1: Thêm Sản phẩm");
+            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 2: Sửa  Sản phẩm");
+            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 3: Xóa  Sản phẩm");
+            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 0: Quay lại");
+            System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
             System.out.print("Enter number: ");
-            choice = Integer.parseInt(scanner.nextLine());
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                choice = -1;
+            }
             switch (choice) {
                 case 1:
-                    clearScreen(5);
+                    ClearScreen.clearScreen(5);
                     addProduct();
                     break;
                 case 2:
-                    clearScreen(5);
+                    ClearScreen.clearScreen(5);
                     editProduct();
                     break;
                 case 3:
-                    clearScreen(3);
+                    ClearScreen.clearScreen(3);
                     deleteProduct();
                     break;
                 case 0:
-                    clearScreen();
+                    ClearScreen.clearScreen();
                     break;
                 default:
-                    clearScreen();
                     System.out.println("Lỗi! Không nằm trong mục lục. Yêu cầu chọn lại:");
             }
         } while (choice != 0);
+    }
+
+    public static void showProduct() {
+        productsList = productService.productList;
+        System.out.println("_____________________________________________________________________________________________________");
+        int i = 1;
+        for (Product product : productsList) {
+            System.out.printf("|\t%-4s|%s|%n", i, product.display());
+            i++;
+        }
+        System.out.println("_____________________________________________________________________________________________________");
     }
 
     public static void addProduct() {
@@ -57,25 +72,39 @@ public class ProductView implements ClearScreen {
         int quantity = InputData.getQuantity();
         int price = InputData.getPrice();
 
+        Product productInfo = new Product()
+                .setProductName(productName)
+                .setBrand(brand)
+                .setQuantity(quantity)
+                .setPrice(price);
+
         System.out.printf("Bạn muốn tạo mới Sản phầm này? ProductName: %s| Brand: %s| Quantity: %s| Price: %s (y/n) : ",
                 productName, brand, quantity, price);
         if (InputData.choice()) {
-            productService.addProduct(productName, brand, quantity, price);
+            productService.addProduct(productInfo);
         }
     }
 
     public static void editProduct() {
+        productsList = productService.productList;
         System.out.print("Nhập STT Sản phẩm cần sửa: ");
-        int index = InputData.getIndex(productService.productList);
+        int index = InputData.getIndex(productsList);
+        long idProduct = productsList.get(index-1).getIdProduct();
         String productName = InputData.getName();
         String brand = InputData.getBrand();
         int quantity = InputData.getQuantity();
         int price = InputData.getPrice();
+        Product productInfo = new Product()
+                .setIdProduct(idProduct)
+                .setProductName(productName)
+                .setBrand(brand)
+                .setQuantity(quantity)
+                .setPrice(price);
 
         System.out.printf("Bạn muốn tạo sửa thông tin sản phẩm này? ProductName: %s| Brand: %s| Quantity: %s| Price: %s (y/n) : ",
                 productName, brand, quantity, price);
         if (InputData.choice()) {
-            productService.editProduct(index, productName, brand, quantity, price);
+            productService.editProduct(index, productInfo);
         }
     }
 
@@ -88,18 +117,6 @@ public class ProductView implements ClearScreen {
         System.out.printf("Bạn muốn xóa Product: %s? (y/n)%n", productName);
         if (InputData.choice()) {
             productService.deleteProduct(index);
-        }
-    }
-
-    public static void clearScreen() {
-        for (int i = 0; i < 25; i++) {
-            System.out.println();
-        }
-    }
-
-    public static void clearScreen(int line) {
-        for (int i = 0; i < line; i++) {
-            System.out.println();
         }
     }
 }

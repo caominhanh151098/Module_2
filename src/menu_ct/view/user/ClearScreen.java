@@ -1,5 +1,15 @@
 package menu_ct.view.user;
 
-public interface ClearScreen {
-    static void clearScreen() {}
+public class ClearScreen {
+    public static void clearScreen() {
+        for (int i = 0; i < 25; i++) {
+            System.out.println();
+        }
+    }
+
+    public static void clearScreen(int line) {
+        for (int i = 0; i < line; i++) {
+            System.out.println();
+        }
+    }
 }

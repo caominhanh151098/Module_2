@@ -1,12 +1,16 @@
 package menu_ct.view.user;
 
+import menu_ct.view.user.ClearScreen;
+import menu_ct.view.user.ProductView;
+import menu_ct.view.user.UserView;
+
 import java.util.Scanner;
 
-public class MainMenu implements ClearScreen{
+public class MainMenu {
     static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
         int choice;
-        clearScreen();
+        ClearScreen.clearScreen();
         do {
             System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
             System.out.printf("⚃\t\t%-40s⚃%n","--Menu quản lý QUÁN BÁN ĐỒNG HỒ--");
@@ -20,7 +24,6 @@ public class MainMenu implements ClearScreen{
             try {
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Error! Nhập rỗng");
                 choice = -1;
             }
             switch (choice) {
@@ -31,22 +34,17 @@ public class MainMenu implements ClearScreen{
                     ProductView.clocks();
                     break;
                 case 3:
-                    clearScreen();
+                    OrderView.orders();
                     break;
                 case 0:
-                    clearScreen();
+                    ClearScreen.clearScreen();
                     System.out.println("Exit!");
                     System.exit(0);
                 default:
-                    clearScreen();
                     System.out.println("Error! Không nằm trong mục lục. Yêu cầu chọn lại:");
             }
         } while (true);
     }
 
-    public static void clearScreen() {
-        for (int i = 0; i < 25; i++) {
-            System.out.println();
-        }
-    }
+
 }

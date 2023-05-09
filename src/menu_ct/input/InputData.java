@@ -74,7 +74,6 @@ public class InputData {
 
     public static Date getDate() {
         String date;
-        Date dob;
         do {
             System.out.print("Nhập ngày sinh: ");
             date = scanner.nextLine();
@@ -85,7 +84,7 @@ public class InputData {
             if (Validate.checkDate(date) == false) System.out.println("Ngày không phù hợp! Mời nhập lại!");
         } while (date.equals("") || Validate.checkDate(date) == false);
         try {
-            return dob = new SimpleDateFormat("dd-MM-yyyy").parse(date);
+            return new SimpleDateFormat("dd-MM-yyyy").parse(date);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -114,7 +113,8 @@ public class InputData {
         do {
             System.out.print("Nhập số điện thoại: ");
             phoneNum = scanner.nextLine();
-            if (phoneNum.equals("")) return phoneNum;
+            if (phoneNum.equals(""))
+                System.out.println("Số điện thoại không được rỗng! Mời nhập lại!");
             if (Validate.checkPhoneNum(phoneNum) == false)
                 System.out.println("Số điện thoại không phù hợp! Mời nhập lại!");
         } while (Validate.checkPassword(phoneNum) == false);
@@ -127,53 +127,15 @@ public class InputData {
         do {
             String number = scanner.nextLine();
             if (number.equals("")) {
-                System.out.println("Error! Không được rỗng!");
+                System.out.print("Error! Không được rỗng! Yêu cầu nhập lại: ");
                 continue;
             }
             index = Integer.parseInt(number);
-            if (index < 0 || index > userList.size()) {
-                System.out.println("Error! Lỗi nhập STT");
+            if (index < 1 || index > userList.size()) {
+                System.out.print("Error! Lỗi nhập STT! Yêu cầu nhập lại: ");
             }
-        } while (index < 0 || index > userList.size());
+        } while (index < 1 || index > userList.size());
         return index;
-    }
-
-    public static int getTimekepping() {
-        int timekepping = 0;
-        do {
-            System.out.print("Nhập Tổng ngày chấm công: ");
-            String number = scanner.nextLine();
-            if (number.equals("")) break;
-            timekepping = Integer.parseInt(number);
-            if (timekepping < 0) System.out.println("Chấm công không thể âm! Mời nhập lại");
-        } while (timekepping < 0);
-        return timekepping;
-    }
-
-    public static int getDailySalary() {
-        int dailySalary = 40000;
-        do {
-            System.out.print("Nhập Lương theo ngày: ");
-            String number = scanner.nextLine();
-            if (number.equals("")) continue;
-            dailySalary = Integer.parseInt(number);
-            if (dailySalary < 0)
-                System.out.println("Chấm công không thể âm! Mời nhập lại");
-        } while (dailySalary < 0);
-        return dailySalary;
-    }
-
-    public static double getCoefficientsSalary() {
-        double coefficientsSalary = 6.2;
-        do {
-            System.out.print("Nhập Hệ số lương: ");
-            String number = scanner.nextLine();
-            if (number.equals("")) break;
-            coefficientsSalary = Double.parseDouble(number);
-            if (coefficientsSalary < 6.2)
-                System.out.println("Hệ số lương không được thấp quá mức cơ bản 6.2");
-        } while (coefficientsSalary < 6.2);
-        return coefficientsSalary;
     }
 
     public static String getBrand() {
@@ -215,9 +177,15 @@ public class InputData {
     }
 
     public static boolean choice() {
-        Character answer;
+        Character answer = null;
         do {
-            answer = scanner.nextLine().charAt(0);
+            try {
+                answer = scanner.nextLine().charAt(0);
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Nhập rỗng! Mời nhập lại!");
+                answer = 'o';
+                continue;
+            }
             answer = Character.toLowerCase(answer);
             if (answer == CHOICE_YES || answer == CHOICE_NO) {
                 if (answer == CHOICE_YES) {

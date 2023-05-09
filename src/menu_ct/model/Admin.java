@@ -3,20 +3,45 @@ package menu_ct.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Employee extends User {
+public class Admin extends User {
     private Date dob;
-    private String address;
-    private String email;
-    private String numPhone;
+    private String address = "";
+    private String email = "";
+    private String numPhone = "";
 
-    public Employee() {
+    public Admin() {
+    }
+
+    public Admin setId(long id) {
+        super.setId(id);
+        return this;
+    }
+
+    public Admin setUsername(String username) {
+        super.setUsername(username);
+        return this;
+    }
+
+    public Admin setPassword(String password) {
+        super.setPassword(password);
+        return this;
+    }
+
+    public Admin setRote(int rote) {
+        super.setRote(rote);
+        return this;
+    }
+
+    public Admin setName(String name) {
+        super.setName(name);
+        return this;
     }
 
     public String getDob() {
         return new SimpleDateFormat("dd-MM-yyyy").format(dob);
     }
 
-    public Employee setDob(Date dob) {
+    public Admin setDob(Date dob) {
         this.dob = dob;
         return this;
     }
@@ -25,7 +50,7 @@ public class Employee extends User {
         return address;
     }
 
-    public Employee setAddress(String address) {
+    public Admin setAddress(String address) {
         this.address = address;
         return this;
     }
@@ -34,7 +59,7 @@ public class Employee extends User {
         return email;
     }
 
-    public Employee setEmail(String email) {
+    public Admin setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -43,14 +68,16 @@ public class Employee extends User {
         return numPhone;
     }
 
-    public Employee setNumPhone(String numPhone) {
+    public Admin setNumPhone(String numPhone) {
         this.numPhone = numPhone;
         return this;
     }
+
     @Override
     public String toString() {
         return String.format("%s/%s/%s/%s/%s", super.toString(), getDob(), getAddress(), getEmail(), getNumPhone());
     }
+
     @Override
     public String display() {
         return String.format("%s| %-15s| %-20s| %-25s| %-12s", super.display(), getDob(), getAddress(), getEmail(), getNumPhone());
