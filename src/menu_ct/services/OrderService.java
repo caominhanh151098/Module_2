@@ -13,17 +13,16 @@ import java.util.Date;
 public class OrderService implements Convert {
     public static ArrayList<Order> orderList = new ArrayList<>();
     public static OrderDetailService orderDetailService = new OrderDetailService();
+    public static String path = "data\\order.csv";
 
-
-    public void getOrderList() {
-        orderList = new ArrayList<>();
-        String url = "data\\order.txt";
+    public ArrayList<Order> getOrderList() {
+        orderList.clear();
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(url));
+            BufferedReader reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
             while (line != null) {
-                String[] order = line.split("/");
+                String[] order = line.split(",");
                 long idOrder = Long.parseLong(order[0]);
                 long idUser = Long.parseLong(order[1]);
                 Date orderDate = covertDate(order[2]);
@@ -39,21 +38,18 @@ public class OrderService implements Convert {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
+        return orderList;
     }
 
-    public void showOrder() {
+    public ArrayList<Order> findOrderById(long id) {
         getOrderList();
-        System.out.println("_____________________________________________________________________________________________________");
-        int i = 1;
+        ArrayList<Order> myOrder = new ArrayList<>();
         for (Order order : orderList) {
-            System.out.printf("|\t%-4s|%s|%n", i, order.display());
-            i++;
+            if (order.getIdUser() == id) {
+                myOrder.add(order);
+            }
         }
-        System.out.println("_____________________________________________________________________________________________________");
-    }
-
-    public void viewOrderDetail(int index) {
-        orderDetailService.showOrderDetal(orderList.get(index - 1).getIdOrderDetail());
+        return myOrder;
     }
 
     @Override

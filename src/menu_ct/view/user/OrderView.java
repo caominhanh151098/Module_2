@@ -16,7 +16,7 @@ public class OrderView {
         Scanner scanner = new Scanner(System.in);
         int choice;
         do {
-            orderService.showOrder();
+            showOrder();
             System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
             System.out.printf("⚃\t\t%-40s⚃%n", "--Menu quản lý Đơn đặt hàng--");
             System.out.printf("⚃\t\t%-40s⚃%n", "Chọn trong các mục");
@@ -49,16 +49,27 @@ public class OrderView {
         } while (choice != 0);
     }
 
+    public static void showOrder() {
+        orderList = orderService.getOrderList();
+        System.out.println("_____________________________________________________________________________________________________");
+        int i = 1;
+        for (Order order : orderList) {
+            System.out.printf("|\t%-4s|%s|%n", i, order.display());
+            i++;
+        }
+        System.out.println("_____________________________________________________________________________________________________");
+    }
+
     public static void viewDetail() {
         System.out.print("Nhập STT Đơn hàng cần xem: ");
         int index = InputData.getIndex(orderService.orderList);
-        OrderDetailView.orderdetail();
+        OrderDetailView.orderDetail(index);
     }
 
     public static void processingOrder() {
         System.out.print("Nhập STT Đơn hàng cần xử lý: ");
         int index = InputData.getIndex(orderService.orderList);
-        orderService.viewOrderDetail(index);
+//        orderService.viewOrderDetail(index);
 
     }
 }

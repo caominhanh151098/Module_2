@@ -1,6 +1,6 @@
 package menu_ct.input;
 
-import menu_ct.model.User;
+import menu_ct.model.Account;
 import menu_ct.services.UserService;
 
 import java.text.ParseException;
@@ -16,7 +16,7 @@ public class InputData {
     static final char CHOICE_YES = 'y';
     static final char CHOICE_NO = 'n';
     static UserService userService = new UserService();
-    static ArrayList<User> userList;
+    static ArrayList<Account> accountList;
 
     public static String getUsername() {
         String username;
@@ -113,28 +113,34 @@ public class InputData {
         do {
             System.out.print("Nhập số điện thoại: ");
             phoneNum = scanner.nextLine();
-            if (phoneNum.equals(""))
+            if (phoneNum.equals("")) {
                 System.out.println("Số điện thoại không được rỗng! Mời nhập lại!");
+                continue;
+            }
             if (Validate.checkPhoneNum(phoneNum) == false)
                 System.out.println("Số điện thoại không phù hợp! Mời nhập lại!");
-        } while (Validate.checkPassword(phoneNum) == false);
+        } while (phoneNum.equals("") || Validate.checkPhoneNum(phoneNum) == false);
         return phoneNum;
     }
 
     public static int getIndex(ArrayList list) {
         int index = 0;
-        userList = list;
+        accountList = list;
         do {
             String number = scanner.nextLine();
             if (number.equals("")) {
                 System.out.print("Error! Không được rỗng! Yêu cầu nhập lại: ");
                 continue;
             }
-            index = Integer.parseInt(number);
-            if (index < 1 || index > userList.size()) {
+            try {
+                index = Integer.parseInt(number);
+            } catch (NumberFormatException e) {
+                index = 0;
+            }
+            if (index < 1 || index > accountList.size()) {
                 System.out.print("Error! Lỗi nhập STT! Yêu cầu nhập lại: ");
             }
-        } while (index < 1 || index > userList.size());
+        } while (index < 1 || index > accountList.size());
         return index;
     }
 

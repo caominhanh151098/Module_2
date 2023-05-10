@@ -58,6 +58,6 @@ public class OrderDetail {
     }
 
     public String display() {
-        return String.format("%15s| %-60s| %5s| %20s", getIdOrderDetail(), getProductName(), getOrdered_quantity(), getOrderPrice());
+        return String.format("%-60s| %15s| %10s", getProductName(), getOrdered_quantity(), getOrderPrice());
     }
 }

@@ -1,8 +1,7 @@
 package menu_ct.view.user;
 
 import menu_ct.input.InputData;
-import menu_ct.model.Admin;
-import menu_ct.model.User;
+import menu_ct.model.Account;
 import menu_ct.services.UserService;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.Scanner;
 
 public class UserView {
     static UserService userService = new UserService();
-    static ArrayList<User> userList;
+    static ArrayList<Account> accountList;
     static Scanner scanner = new Scanner(System.in);
 
     public static void user() {
@@ -57,11 +56,11 @@ public class UserView {
     }
 
     public static void showUser() {
-        userList = userService.userList;
+        accountList = userService.accountList;
         System.out.println("-----------------------------------------------------------------");
         int i = 1;
-        for (User user : userList) {
-            System.out.printf("|\t%-4s|%s|%n", i, user.display());
+        for (Account account : accountList) {
+            System.out.printf("|\t%-4s|%s|%n", i, account.display());
             i++;
         }
         System.out.println("-----------------------------------------------------------------");
@@ -76,7 +75,7 @@ public class UserView {
         String address = InputData.getAddress();
         String email = InputData.getEmail();
         String phoneNum = InputData.getPhoneNum();
-        User userInfo = new Admin()
+        Account accountInfo = new Account()
                 .setUsername(username)
                 .setPassword(password)
                 .setName(name)
@@ -86,17 +85,17 @@ public class UserView {
                 .setEmail(email)
                 .setNumPhone(phoneNum);
 
-        System.out.printf("Bạn muốn tạo mới tài khoản này? Username: %s|Password: %s|Name: %s|Role: %s (y/n) : ",
-                username, password, name, role);
+        System.out.printf("Bạn muốn tạo mới tài khoản này? %s (y/n)",
+                accountInfo.info());
         if (InputData.choice()) {
-            userService.addUser(userInfo);
+            userService.addUser(accountInfo);
         }
     }
 
     public static void editUser() {
-        userList = userService.userList;
+        accountList = userService.accountList;
         System.out.print("Nhập STT Tài khoản cần sửa: ");
-        int index = InputData.getIndex(userList);
+        int index = InputData.getIndex(accountList);
         String password = InputData.getPassword();
         String name = InputData.getName();
         int role = InputData.getRole();
@@ -105,9 +104,9 @@ public class UserView {
         String email = InputData.getEmail();
         String phoneNum = InputData.getPhoneNum();
 
-        String username = userList.get(index - 1).getUsername();
-        Long id = userList.get(index - 1).getId();
-        User userInfo = new Admin()
+        String username = accountList.get(index - 1).getUsername();
+        Long id = accountList.get(index - 1).getId();
+        Account accountInfo = new Account()
                 .setId(id)
                 .setUsername(username)
                 .setPassword(password)
@@ -121,16 +120,16 @@ public class UserView {
                         "Address: %s, Email: %s, Phone Number: %s(y/n)",
                 username, password, name, role, dob, address, email, phoneNum);
         if (InputData.choice()) {
-            userService.editUser(index, userInfo);
+            userService.editUser(index, accountInfo);
         }
     }
 
     public static void deleteUser() {
-        userList = userService.userList;
+        accountList = userService.accountList;
         System.out.print("Nhập STT Tài khoản muốn xóa: ");
-        int index = InputData.getIndex(userList);
+        int index = InputData.getIndex(accountList);
 
-        String username = userList.get(index - 1).getUsername();
+        String username = accountList.get(index - 1).getUsername();
         System.out.printf("Bạn muốn xóa Username: %s? (y/n)%n", username);
         if (InputData.choice()) {
             userService.deleteUser(index);

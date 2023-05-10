@@ -1,7 +1,5 @@
 package menu_ct.output;
 
-import menu_ct.model.User;
-
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

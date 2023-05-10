@@ -1,7 +1,6 @@
 package menu_ct.services;
 
-import menu_ct.model.Admin;
-import menu_ct.model.User;
+import menu_ct.model.Account;
 import menu_ct.output.WriteFile;
 
 import java.io.*;
@@ -11,18 +10,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class UserService implements Convert {
-    static String path = "data\\user.txt";
-    public static ArrayList<User> userList = new ArrayList<>();
+    static String path = "data\\user.csv";
+    public static ArrayList<Account> accountList = new ArrayList<>();
 
-    public void getUserList() {
-        userList = new ArrayList<>();
-        String url = "data\\user.txt";
+    public ArrayList<Account> getUserList() {
+        accountList.clear();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(url));
-
+            BufferedReader reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
             while (line != null) {
-                String[] user = line.split("/");
+                String[] user = line.split(",");
                 long id = Long.parseLong(user[0]);
                 String username = user[1];
                 String password = user[2];
@@ -32,7 +29,7 @@ public class UserService implements Convert {
                 String address = user[6];
                 String email = user[7];
                 String phoneNum = user[8];
-                User userInfo = new Admin()
+                Account accountInfo = new Account()
                         .setId(id)
                         .setUsername(username)
                         .setPassword(password)
@@ -42,7 +39,7 @@ public class UserService implements Convert {
                         .setAddress(address)
                         .setEmail(email)
                         .setNumPhone(phoneNum);
-                userList.add(userInfo);
+                accountList.add(accountInfo);
                 line = reader.readLine();
             }
             reader.close();
@@ -51,27 +48,47 @@ public class UserService implements Convert {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return accountList;
     }
 
-    public void addUser(User newUser) {
+    public void addUser(Account newAccount) {
         getUserList();
-        userList.add(newUser);
-        WriteFile.editData(userList, path);
+        accountList.add(newAccount);
+        WriteFile.editData(accountList, path);
     }
 
-    public void editUser(int index, User editUser) {
+    public void editUser(int index, Account editAccount) {
         getUserList();
-        userList.set(index - 1, editUser);
-        WriteFile.editData(userList, path);
+        accountList.set(index - 1, editAccount);
+        WriteFile.editData(accountList, path);
+    }
+
+    public void editUser(Account editAccount) {
+        getUserList();
+        int index = 1;
+        for (Account account : accountList) {
+            if (account.getId() == editAccount.getId()) {
+                editUser(index, editAccount);
+                break;
+            } else index++;
+        }
     }
 
     public void deleteUser(int index) {
         getUserList();
-        userList.remove(index - 1);
-        WriteFile.editData(userList, path);
+        accountList.remove(index - 1);
+        WriteFile.editData(accountList, path);
     }
 
-
+    public Account findUserByID(long id) {
+        getUserList();
+        for (Account account : accountList) {
+            if (account.getId() == id) {
+                return account;
+            }
+        }
+        return null;
+    }
 
     @Override
     public Date covertDate(String textDate) throws ParseException {

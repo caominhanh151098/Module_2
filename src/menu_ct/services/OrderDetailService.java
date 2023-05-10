@@ -11,19 +11,21 @@ import java.util.ArrayList;
 public class OrderDetailService {
     public static ProductService productService = new ProductService();
     public static ArrayList<OrderDetail> orderDetailList = new ArrayList<>();
+    public static int totalPrice = 0;
+    public static String path = "data\\orderdetail.csv";
 
-    public void getOrderDetail(long idOrderDetail) {
+    public ArrayList<OrderDetail> getOrderDetailByID(long idOrderDetail) {
         OrderDetail orderDetail = new OrderDetail();
         productService.getProductList();
         ArrayList<Product> productList = productService.productList;
         orderDetailList = new ArrayList<>();
-        String url = "data\\orderdetail.txt";
+
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(url));
+            BufferedReader reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
             while (line != null) {
-                String[] order = line.split("/");
+                String[] order = line.split(",");
                 if (idOrderDetail == Long.parseLong(order[0])) {
                     for (Product product : productList) {
                         if (product.getIdProduct() == Long.parseLong(order[1])) {
@@ -31,6 +33,7 @@ public class OrderDetailService {
                             int ordered_quantity = Integer.parseInt(order[2]);
                             int orderPrice = Integer.parseInt(order[3]);
                             orderDetail = new OrderDetail(idOrderDetail, productName, ordered_quantity, orderPrice);
+                            totalPrice += orderPrice * ordered_quantity;
                         }
                     }
                     orderDetailList.add(orderDetail);
@@ -43,16 +46,6 @@ public class OrderDetailService {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-    }
-
-    public void showOrderDetal(long idOrderDetail) {
-        getOrderDetail(idOrderDetail);
-        System.out.println("_____________________________________________________________________________________________________");
-        int i = 1;
-        for (OrderDetail orderDetail : orderDetailList) {
-            System.out.printf("|\t%-4s|%s|%n", i, orderDetail.display());
-            i++;
-        }
-        System.out.println("_____________________________________________________________________________________________________");
+        return orderDetailList;
     }
 }

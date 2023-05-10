@@ -8,17 +8,15 @@ import java.util.ArrayList;
 
 public class ProductService {
     public static ArrayList<Product> productList = new ArrayList<>();
-    static String path = "data\\product.txt";
+    static String path = "data\\product.csv";
 
-    public void getProductList() {
-        productList = new ArrayList<>();
-
-
+    public ArrayList<Product> getProductList() {
+        productList.clear();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
             while (line != null) {
-                String[] product = line.split("/");
+                String[] product = line.split(",");
                 long idProduct = Long.parseLong(product[0]);
                 String productName = product[1];
                 String brand = product[2];
@@ -39,6 +37,7 @@ public class ProductService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return productList;
     }
 
     public void addProduct(Product newProduct) {

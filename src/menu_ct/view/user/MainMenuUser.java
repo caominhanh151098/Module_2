@@ -1,19 +1,16 @@
 package menu_ct.view.user;
 
-import menu_ct.view.user.ClearScreen;
-import menu_ct.view.user.ProductView;
-import menu_ct.view.user.UserView;
-
 import java.util.Scanner;
 
-public class MainMenu {
+public class MainMenuUser {
     static Scanner scanner = new Scanner(System.in);
-    public static void main(String[] args) throws Exception {
+
+    public static void mainMenuAdmin() {
         int choice;
         ClearScreen.clearScreen();
         do {
             System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
-            System.out.printf("⚃\t\t%-40s⚃%n","--Menu quản lý QUÁN BÁN ĐỒNG HỒ--");
+            System.out.printf("⚃\t\t%-40s⚃%n", "--Menu quản lý QUÁN BÁN ĐỒNG HỒ--");
             System.out.printf("⚃\t\t%-40s⚃%n", "Chọn trong các mục");
             System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 1: Mở mục Tài khoản");
             System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 2: Mở mục Sản phầm");

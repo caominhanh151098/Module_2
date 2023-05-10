@@ -71,7 +71,7 @@ public class Product {
     }
 
     public String toString() {
-        return String.format("%s/%s/%s/%s/%s", getIdProduct(), getProductName(), getBrand(), getQuantity(), getPrice());
+        return String.format("%s,%s,%s,%s,%s", getIdProduct(), getProductName(), getBrand(), getQuantity(), getPrice());
     }
 
     public String display() {

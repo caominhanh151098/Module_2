@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Reader {
     public static ArrayList<String> readText() throws IOException {
-        String url = "D:\\Zero\\CodeGym\\Module_2\\src\\menu_ct\\data\\user.txt";
+        String url = "D:\\Zero\\CodeGym\\Module_2\\src\\menu_ct\\data\\user.csv";
 
         BufferedReader reader = new BufferedReader(new FileReader(url));
         ArrayList<String> list = new ArrayList<>();
