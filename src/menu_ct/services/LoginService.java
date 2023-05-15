@@ -16,9 +16,9 @@ public class LoginService {
             if (account.getUsername().equals(username) && account.getPassword().equals(password)) {
                 System.out.println("Welcome to VN!");
                 if (account.getRote() == 0 || account.getRote() == 1) {
-                    MainMenuUser.mainMenuAdmin();
+                    MainMenuUser.mainMenuAdmin(account);
                 } else
-//                    MainMenuClient.mainMenuClient(account.getId());
+                    MainMenuClient.mainMenuClient(account.getId());
                 return true;
             }
         }

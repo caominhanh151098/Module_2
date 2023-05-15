@@ -1,15 +1,14 @@
 package menu_ct.services;
 
+import menu_ct.input.CovertDate;
 import menu_ct.model.Account;
 import menu_ct.output.WriteFile;
 
 import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class UserService implements Convert {
+public class UserService{
     static String path = "data\\user.csv";
     public static ArrayList<Account> accountList = new ArrayList<>();
 
@@ -25,7 +24,7 @@ public class UserService implements Convert {
                 String password = user[2];
                 String name = user[3];
                 int role = Integer.parseInt(user[4]);
-                Date dob = covertDate(user[5]);
+                Date dob = CovertDate.covertDate(user[5]);
                 String address = user[6];
                 String email = user[7];
                 String phoneNum = user[8];
@@ -88,12 +87,5 @@ public class UserService implements Convert {
             }
         }
         return null;
-    }
-
-    @Override
-    public Date covertDate(String textDate) throws ParseException {
-
-        return new SimpleDateFormat("dd-MM-yyyy").parse(textDate);
-
     }
 }

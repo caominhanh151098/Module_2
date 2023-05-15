@@ -1,7 +1,9 @@
 package menu_ct.services;
 
+import menu_ct.model.CartDetail;
 import menu_ct.model.OrderDetail;
 import menu_ct.model.Product;
+import menu_ct.output.WriteFile;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -11,41 +13,70 @@ import java.util.ArrayList;
 public class OrderDetailService {
     public static ProductService productService = new ProductService();
     public static ArrayList<OrderDetail> orderDetailList = new ArrayList<>();
-    public static int totalPrice = 0;
+    public static int totalPrice;
     public static String path = "data\\orderdetail.csv";
 
-    public ArrayList<OrderDetail> getOrderDetailByID(long idOrderDetail) {
-        OrderDetail orderDetail = new OrderDetail();
-        productService.getProductList();
-        ArrayList<Product> productList = productService.productList;
-        orderDetailList = new ArrayList<>();
-
-
+    public ArrayList<OrderDetail> getOrderDetailList() {
+        orderDetailList.clear();
+        ArrayList<Product> productList = productService.getProductList();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(path));
             String line = reader.readLine();
             while (line != null) {
                 String[] order = line.split(",");
-                if (idOrderDetail == Long.parseLong(order[0])) {
-                    for (Product product : productList) {
-                        if (product.getIdProduct() == Long.parseLong(order[1])) {
-                            String productName = product.getProductName();
-                            int ordered_quantity = Integer.parseInt(order[2]);
-                            int orderPrice = Integer.parseInt(order[3]);
-                            orderDetail = new OrderDetail(idOrderDetail, productName, ordered_quantity, orderPrice);
-                            totalPrice += orderPrice * ordered_quantity;
-                        }
+                long idOrderDetail = Long.parseLong(order[0]);
+                long idProduct = Long.parseLong(order[1]);
+                int ordered_quantity = Integer.parseInt(order[2]);
+                String productName = null;
+                int productPrice = 0;
+                for (Product product : productList)
+                    if (product.getIdProduct() == idProduct) {
+                        productName = product.getProductName();
+                        productPrice = product.getPrice();
                     }
-                    orderDetailList.add(orderDetail);
-                }
+                OrderDetail orderDetail = new OrderDetail()
+                        .setIdOrderDetail(idOrderDetail)
+                        .setIdProduct(idProduct)
+                        .setProductName(productName)
+                        .setProductPrice(productPrice)
+                        .setOrdered_quantity(ordered_quantity);
+                orderDetailList.add(orderDetail);
                 line = reader.readLine();
             }
-            reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Error! Không thấy file data!");
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
         return orderDetailList;
+    }
+
+    public ArrayList<OrderDetail> getOrderDetailByID(long idOrderDetail) {
+        orderDetailList.clear();
+        getOrderDetailList();
+        totalPrice = 0;
+        ArrayList<OrderDetail> detailList = new ArrayList<>();
+        for (OrderDetail orderDetail : orderDetailList) {
+            if (orderDetail.getIdOrderDetail() == idOrderDetail) {
+                totalPrice += orderDetail.getProductPrice() * orderDetail.getOrdered_quantity();
+                detailList.add(orderDetail);
+            }
+        }
+        return detailList;
+    }
+
+    public long newOrderDetail(ArrayList<CartDetail> cartDetailList) {
+        getOrderDetailList();
+        long idOrderDetail = System.currentTimeMillis();
+        for (CartDetail cartDetail : cartDetailList) {
+            OrderDetail newOrderDetail = new OrderDetail()
+                    .setIdOrderDetail(idOrderDetail)
+                    .setIdProduct(cartDetail.getIdProduct())
+                    .setProductName(cartDetail.getProductName())
+                    .setOrdered_quantity(cartDetail.getBuy_quantity());
+            orderDetailList.add(newOrderDetail);
+        }
+        WriteFile.editData(orderDetailList,path);
+        return idOrderDetail;
     }
 }

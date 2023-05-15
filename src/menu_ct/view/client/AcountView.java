@@ -5,7 +5,6 @@ import menu_ct.model.Account;
 import menu_ct.services.UserService;
 import menu_ct.view.user.ClearScreen;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 

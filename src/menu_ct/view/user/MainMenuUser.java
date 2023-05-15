@@ -1,11 +1,13 @@
 package menu_ct.view.user;
 
+import menu_ct.model.Account;
+
 import java.util.Scanner;
 
 public class MainMenuUser {
     static Scanner scanner = new Scanner(System.in);
 
-    public static void mainMenuAdmin() {
+    public static void mainMenuAdmin(Account account) {
         int choice;
         ClearScreen.clearScreen();
         do {
@@ -15,7 +17,7 @@ public class MainMenuUser {
             System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 1: Mở mục Tài khoản");
             System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 2: Mở mục Sản phầm");
             System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 3: Mở mục Đặt hàng");
-            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 0: Thoát chương trình");
+            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 0: Đăng xuất");
             System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
             System.out.print("Enter number: ");
             try {
@@ -25,22 +27,21 @@ public class MainMenuUser {
             }
             switch (choice) {
                 case 1:
-                    UserView.user();
+                    UserView.user(account);
                     break;
                 case 2:
-                    ProductView.clocks();
+                    ProductView.products(account.getRote());
                     break;
                 case 3:
                     OrderView.orders();
                     break;
                 case 0:
                     ClearScreen.clearScreen();
-                    System.out.println("Exit!");
-                    System.exit(0);
+                    break;
                 default:
                     System.out.println("Error! Không nằm trong mục lục. Yêu cầu chọn lại:");
             }
-        } while (true);
+        } while (choice != 0);
     }
 
 

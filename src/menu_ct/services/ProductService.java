@@ -1,5 +1,7 @@
 package menu_ct.services;
 
+import menu_ct.model.Cart;
+import menu_ct.model.CartDetail;
 import menu_ct.model.Product;
 import menu_ct.output.WriteFile;
 
@@ -56,5 +58,25 @@ public class ProductService {
         getProductList();
         productList.remove(index - 1);
         WriteFile.editData(productList, path);
+    }
+
+    public void buyProduct(long idProduct, int buyQuantity) {
+        getProductList();
+        for (Product product : productList)
+            if (product.getIdProduct() == idProduct) {
+                product.setQuantity(product.getQuantity() - buyQuantity);
+                break;
+            }
+        WriteFile.editData(productList, path);
+    }
+
+    public boolean checkQuantityProduct(CartDetail cartDetail) {
+        getProductList();
+        for (Product product : productList)
+            if (product.getIdProduct() == cartDetail.getIdProduct()) {
+                if (product.getQuantity() < cartDetail.getBuy_quantity())
+                    return false;
+            }
+        return true;
     }
 }

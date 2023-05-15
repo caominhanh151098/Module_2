@@ -1,7 +1,55 @@
 package menu_ct.view.client;
 
-public class ShopView {
-    public static void viewProduct() {
+import menu_ct.input.InputData;
+import menu_ct.model.Cart;
+import menu_ct.model.CartDetail;
+import menu_ct.model.Product;
+import menu_ct.services.CartDetailService;
+import menu_ct.services.CartService;
+import menu_ct.services.ProductService;
+import menu_ct.view.user.ClearScreen;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class ShopView {
+    static ProductService productService = new ProductService();
+    static CartDetailService cartDetailService = new CartDetailService();
+    static CartService cartService = new CartService();
+    static ArrayList<Product> productList = new ArrayList<>();
+
+    public static void viewShop(long idUser) {
+        ClearScreen.clearScreen();
+        Cart myCart = cartService.newCart(idUser);
+        do {
+            showProduct();
+            System.out.println("Chọn STT sản phẩm bạn muốn mua: ");
+            System.out.print("Enter number: ");
+            int productIndex = InputData.getIndex(productList) - 1;
+            Product choiceProduct = productList.get(productIndex);
+            int quantityBuy = InputData.getQuantityBuy(choiceProduct);
+            System.out.printf("Bạn muốn mua sản phẩm này (Sản phẩm: %s, số lượng: %s)  (y/n): ", choiceProduct.getProductName(), quantityBuy);
+            if (InputData.choice()) {
+                CartDetail cartDetail = new CartDetail()
+                        .setIdCartDetail(myCart.getIdCart())
+                        .setIdProduct(choiceProduct.getIdProduct())
+                        .setBuy_quantity(quantityBuy);
+                cartDetailService.addCartDetail(cartDetail);
+                System.out.println("Đã thêm vào giỏ hàng!");
+            } else System.out.println("Đã bỏ sản phẩm!");
+            System.out.println("Bạn có muốn tiếp tục mua?  (y/n): ");
+            if (!InputData.choice())
+                break;
+        } while (true);
+    }
+
+    public static void showProduct() {
+        productList = productService.getProductList();
+        System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
+        int i = 1;
+        for (Product product : productList)
+            if (product.getQuantity() > 0)
+                System.out.printf("❖\t%-4s|%s❖%n", i++, product.display());
+        System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
     }
 }

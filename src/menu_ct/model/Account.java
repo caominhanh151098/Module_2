@@ -72,6 +72,14 @@ public class Account {
     }
 
     public String getAddress() {
+        return this.address;
+    }
+
+    public String getAddressInfo() {
+        if (address.length() > 25) {
+            String result = address.substring(0, 25) + "...";
+            return result;
+        }
         return address;
     }
 
@@ -81,6 +89,14 @@ public class Account {
     }
 
     public String getEmail() {
+        return email;
+    }
+
+    public String getEmailInfo() {
+        if (email.length() > 25) {
+            String result = email.substring(0, 25) + "...";
+            return result;
+        }
         return email;
     }
 
@@ -103,12 +119,12 @@ public class Account {
     }
 
     public String display() {
-        return String.format(" %-20s| %-20s| %-4s| %-15s| %-20s| %-25s| %-12s",
-                getUsername(), getName(), getRote(), getDob(), getAddress(), getEmail(), getNumPhone());
+        return String.format(" %-20s| %-20s| %4s | %15s | %-30s| %-25s| %12s ",
+                getUsername(), getName(), getRote(), getDob(), getAddressInfo(), getEmailInfo(), getNumPhone());
     }
 
     public String info() {
-        return String.format("Username: %-15s|Name: %-15s|Role: %-4s", getUsername(), getName(), getRote());
+        return String.format("Username: %s|Name: %s|Role: %s", getUsername(), getName(), getRote());
     }
 
     public void showProfile() {
@@ -116,8 +132,8 @@ public class Account {
         System.out.printf("❖\t\t%30s%-60s❖%n", "", "--Thông tin cá nhân--");
         System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
         System.out.printf("❖\t\t%-15s%-30s%-15s%-30s❖%n", "Username:", this.getUsername(), "Name:", this.getName());
-        System.out.printf("❖\t\t%-15s%-30s%-15s%-30s❖%n", "Date of birth:", this.getDob(), "Address:", this.getAddress());
-        System.out.printf("❖\t\t%-15s%-30s%-15s%-30s❖%n", "Email:", this.getEmail(), "Phone Number:", this.getNumPhone());
+        System.out.printf("❖\t\t%-15s%-30s%-15s%-30s❖%n", "Date of birth:", this.getDob(), "Address:", this.getAddressInfo());
+        System.out.printf("❖\t\t%-15s%-30s%-15s%-30s❖%n", "Email:", this.getEmailInfo(), "Phone Number:", this.getNumPhone());
         System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
     }
 }

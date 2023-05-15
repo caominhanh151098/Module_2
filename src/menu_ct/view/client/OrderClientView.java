@@ -18,52 +18,67 @@ public class OrderClientView {
     public static UserService userService = new UserService();
     public static OrderService orderService = new OrderService();
     public static OrderDetailService orderDetailService = new OrderDetailService();
-    public static ArrayList<Order> orderList = new ArrayList<>();
     public static ArrayList<Order> myOrder = new ArrayList<>();
 
 
-    public static void main(String[] args) {
-        //    public static void cartView(long idUser) {
-        mUser = userService.findUserByID(1682146989059L);
-        orderList = orderService.getOrderList();
-        myOrder = orderService.findOrderById(1682146989059L);
+    public static void orderView(long idUser) {
+        mUser = userService.findUserByID(idUser);
+        myOrder = orderService.findOrderById(idUser);
         int choice;
-        do {
-            if (myOrder.isEmpty()) {
-                System.out.println("Bạn không có đơn đặt hàng nào!");
-            } else {
-                int i = 1;
-                System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
-                for (Order order : orderList) {
-                    if (order.getIdUser() == mUser.getId())
-                        System.out.printf("❖\t%-4s❖%-20s❖%-20s❖%-10s❖%n", i++, order.getIdOrderDetail(), order.getOrderDate(), order.getStatus());
-                }
-                System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
-            }
-
+        if (myOrder.isEmpty()) {
+            System.out.println("Bạn không có đơn đặt hàng nào!");
             ClearScreen.clearScreen(3);
             System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
             System.out.printf("⚃\t\t%-40s⚃%n", "Chọn trong các mục");
-            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 1: Xem chi tiết");
             System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 0: Quay lại");
             System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
-            System.out.print("Enter number: ");
-            try {
-                choice = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                choice = -1;
+            do {
+                System.out.print("Enter number: ");
+                try {
+                    choice = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    choice = -1;
+                }
+                switch (choice) {
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Error! Không nằm trong mục lục. Yêu cầu chọn lại:");
+                }
             }
-            switch (choice) {
-                case 1:
-                    viewDetail();
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("Error! Không nằm trong mục lục. Yêu cầu chọn lại:");
+            while (choice != 0);
+        } else {
+            do {
+                int i = 1;
+                System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
+                for (Order order : myOrder)
+                    System.out.printf("❖\t%-4s❖%-20s❖%-20s❖%-10s❖%n", i++, order.getIdOrderDetail(), order.getOrderDate(), order.getStatus());
+                System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
+
+                ClearScreen.clearScreen(3);
+                System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
+                System.out.printf("⚃\t\t%-40s⚃%n", "Chọn trong các mục");
+                System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 1: Xem chi tiết");
+                System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 0: Quay lại");
+                System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
+                System.out.print("Enter number: ");
+                try {
+                    choice = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    choice = -1;
+                }
+                switch (choice) {
+                    case 1:
+                        viewDetail();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Error! Không nằm trong mục lục. Yêu cầu chọn lại:");
+                }
             }
+            while (choice != 0);
         }
-        while (choice != 0);
     }
 
     public static void viewDetail() {
@@ -74,11 +89,9 @@ public class OrderClientView {
         ArrayList<OrderDetail> orderDetailList = orderDetailService.getOrderDetailByID(idOrderDetail);
         System.out.println("___________________________________________________________________________________________________");
         int i = 1;
-        for (OrderDetail orderDetail : orderDetailList) {
-            System.out.printf("|\t%-4s|%s|%n", i, orderDetail.display());
-            i++;
-        }
-        System.out.printf("|\t%-65s| %15s| %10s|%n", "", "Total Price:", orderDetailService.totalPrice);
+        for (OrderDetail orderDetail : orderDetailList)
+            System.out.printf("|\t%-4s|%s|%n", i++, orderDetail.display());
+        System.out.printf("|\t%-65s| %15s| %15s|%n", "", "Total Price: ", orderDetailService.totalPrice);
         System.out.println("___________________________________________________________________________________________________");
     }
 }

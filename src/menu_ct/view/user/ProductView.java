@@ -1,6 +1,7 @@
 package menu_ct.view.user;
 
 import menu_ct.input.InputData;
+import menu_ct.model.Account;
 import menu_ct.model.Product;
 import menu_ct.services.ProductService;
 
@@ -12,51 +13,53 @@ public class ProductView {
     static ArrayList<Product> productsList;
     static Scanner scanner = new Scanner(System.in);
 
-    public static void clocks() {
-        Scanner scanner = new Scanner(System.in);
-        int choice;
-        do {
-            productService.getProductList();
-            ClearScreen.clearScreen();
-            showProduct();
-            System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
-            System.out.printf("⚃\t\t%-40s⚃%n", "--Menu quản lý Sản phẩm--");
-            System.out.printf("⚃\t\t%-40s⚃%n", "Chọn trong các mục");
-            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 1: Thêm Sản phẩm");
-            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 2: Sửa  Sản phẩm");
-            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 3: Xóa  Sản phẩm");
-            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 0: Quay lại");
-            System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
-            System.out.print("Enter number: ");
-            try {
-                choice = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                choice = -1;
-            }
-            switch (choice) {
-                case 1:
-                    ClearScreen.clearScreen(5);
-                    addProduct();
-                    break;
-                case 2:
-                    ClearScreen.clearScreen(5);
-                    editProduct();
-                    break;
-                case 3:
-                    ClearScreen.clearScreen(3);
-                    deleteProduct();
-                    break;
-                case 0:
-                    ClearScreen.clearScreen();
-                    break;
-                default:
-                    System.out.println("Lỗi! Không nằm trong mục lục. Yêu cầu chọn lại:");
-            }
-        } while (choice != 0);
+    public static void products(int role) {
+        if (role == 0) {
+            Scanner scanner = new Scanner(System.in);
+            int choice;
+            do {
+                productService.getProductList();
+                ClearScreen.clearScreen();
+                showProduct();
+                System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
+                System.out.printf("⚃\t\t%-40s⚃%n", "--Menu quản lý Sản phẩm--");
+                System.out.printf("⚃\t\t%-40s⚃%n", "Chọn trong các mục");
+                System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 1: Thêm Sản phẩm");
+                System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 2: Sửa  Sản phẩm");
+                System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 3: Xóa  Sản phẩm");
+                System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 0: Quay lại");
+                System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
+                System.out.print("Enter number: ");
+                try {
+                    choice = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    choice = -1;
+                }
+                switch (choice) {
+                    case 1:
+                        ClearScreen.clearScreen(5);
+                        addProduct();
+                        break;
+                    case 2:
+                        ClearScreen.clearScreen(5);
+                        editProduct();
+                        break;
+                    case 3:
+                        ClearScreen.clearScreen(3);
+                        deleteProduct();
+                        break;
+                    case 0:
+                        ClearScreen.clearScreen();
+                        break;
+                    default:
+                        System.out.println("Lỗi! Không nằm trong mục lục. Yêu cầu chọn lại:");
+                }
+            } while (choice != 0);
+        } else System.out.println("Bạn bị giới hạn chức năng này!");
     }
 
     public static void showProduct() {
-        productsList = productService.productList;
+        productsList = productService.getProductList();
         System.out.println("_____________________________________________________________________________________________________");
         int i = 1;
         for (Product product : productsList) {
@@ -89,7 +92,7 @@ public class ProductView {
         productsList = productService.productList;
         System.out.print("Nhập STT Sản phẩm cần sửa: ");
         int index = InputData.getIndex(productsList);
-        long idProduct = productsList.get(index-1).getIdProduct();
+        long idProduct = productsList.get(index - 1).getIdProduct();
         String productName = InputData.getName();
         String brand = InputData.getBrand();
         int quantity = InputData.getQuantity();

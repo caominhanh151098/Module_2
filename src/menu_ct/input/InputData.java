@@ -1,6 +1,7 @@
 package menu_ct.input;
 
 import menu_ct.model.Account;
+import menu_ct.model.Product;
 import menu_ct.services.UserService;
 
 import java.text.ParseException;
@@ -21,7 +22,7 @@ public class InputData {
     public static String getUsername() {
         String username;
         do {
-            System.out.print("Nhập Username: ");
+            System.out.print("Nhập Username(*): ");
             username = scanner.nextLine();
             if (username.equals("")) {
                 System.out.println("Error! Username không được rỗng!");
@@ -37,7 +38,7 @@ public class InputData {
     public static String getPassword() {
         String password;
         do {
-            System.out.print("Nhập Password: ");
+            System.out.print("Nhập Password(*): ");
             password = scanner.nextLine();
             if (password.equals("")) {
                 System.out.println("Error! Password không được rỗng!");
@@ -53,8 +54,9 @@ public class InputData {
     public static String getName() {
         String name;
         do {
-            System.out.print("Nhập Name: ");
+            System.out.print("Nhập Name(*): ");
             name = scanner.nextLine();
+            if (name.length() > 100) System.out.println("Error! Name quá dài!");
             if (name.equals("")) System.out.println("Error! Name không được rỗng!");
         } while (name.equals(""));
         return name;
@@ -75,7 +77,7 @@ public class InputData {
     public static Date getDate() {
         String date;
         do {
-            System.out.print("Nhập ngày sinh: ");
+            System.out.print("Nhập ngày sinh(*) (dd-MM-YYYY): ");
             date = scanner.nextLine();
             if (date.equals("")) {
                 System.out.println("Error! Ngày Không được rỗng!");
@@ -92,8 +94,12 @@ public class InputData {
 
     public static String getAddress() {
         String address;
-        System.out.print("Nhập địa chỉ: ");
-        address = scanner.nextLine();
+        do {
+            System.out.print("Nhập địa chỉ: ");
+            address = scanner.nextLine();
+            if (Validate.checkAddress(address) == false)
+                System.out.println("Địa chỉ không nên có ký tự đặt biệt! Mời nhập lại: ");
+        }while (Validate.checkAddress(address) == false);
         return address;
     }
 
@@ -111,7 +117,7 @@ public class InputData {
     public static String getPhoneNum() {
         String phoneNum;
         do {
-            System.out.print("Nhập số điện thoại: ");
+            System.out.print("Nhập số điện thoại(*): ");
             phoneNum = scanner.nextLine();
             if (phoneNum.equals("")) {
                 System.out.println("Số điện thoại không được rỗng! Mời nhập lại!");
@@ -161,9 +167,13 @@ public class InputData {
             String number = scanner.nextLine();
             if (number.equals(""))
                 break;
-            quantity = Integer.parseInt(number);
+            try {
+                quantity = Integer.parseInt(number);
+            } catch (NumberFormatException e) {
+                quantity = -1;
+            }
             if (quantity < 0)
-                System.out.println("Số lượng không được nhập âm!");
+                System.out.println("Error! Nhập không phù hợp!");
         } while (quantity < 0);
         return quantity;
     }
@@ -175,11 +185,44 @@ public class InputData {
             String number = scanner.nextLine();
             if (number.equals(""))
                 break;
-            price = Integer.parseInt(number);
+            try {
+                price = Integer.parseInt(number);
+            } catch (NumberFormatException e) {
+                price = -1;
+            }
             if (price < 0)
-                System.out.println("Giá không được nhập âm!");
+                System.out.println("Error! Nhập không phù hợp!");
         } while (price < 0);
         return price;
+    }
+
+    public static int getQuantityBuy(Product product) {
+        int quantity = 0;
+        do {
+            System.out.print("Nhập số lượng bạn cần mua: ");
+            String number = scanner.nextLine();
+            if (number.equals("")) {
+                System.out.println("Error! Không được rỗng! Yêu cầu nhập lại: ");
+                continue;
+            }
+            try {
+                quantity = Integer.parseInt(number);
+            } catch (NumberFormatException e) {
+                quantity = -1;
+            }
+            if (quantity == 0) {
+                System.out.println("Lỗi! Số lượng phải lớn hơn 0");
+                continue;
+            }
+            if (quantity < 0) {
+                System.out.println("Lỗi! Nhập số lượng không phù hợp");
+                continue;
+            }
+            if (quantity > product.getQuantity()) {
+                System.out.println("Lỗi! Số lượng nhập lớn hơn số lượng trong kho hàng");
+            }
+        } while (quantity <= 0 || quantity > product.getQuantity());
+        return quantity;
     }
 
     public static boolean choice() {

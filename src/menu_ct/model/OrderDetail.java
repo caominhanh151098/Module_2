@@ -5,59 +5,68 @@ public class OrderDetail {
     private long idProduct;
     private String productName;
     private int ordered_quantity;
-    private int orderPrice;
+    private int productPrice;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(long idOrderDetail, String productName, int ordered_quantity, int orderPrice) {
+    public OrderDetail(long idOrderDetail, String productName, int ordered_quantity, int productPrice) {
         this.idOrderDetail = idOrderDetail;
         this.productName = productName;
         this.ordered_quantity = ordered_quantity;
-        this.orderPrice = orderPrice;
+        this.productPrice = productPrice;
     }
 
     public long getIdOrderDetail() {
         return idOrderDetail;
     }
 
-    public void setIdOrderDetail(long idOrderDetail) {
+    public OrderDetail setIdOrderDetail(long idOrderDetail) {
         this.idOrderDetail = idOrderDetail;
+        return this;
     }
 
     public long getIdProduct() {
         return idProduct;
     }
 
-    public void setIdProduct(long idProduct) {
+    public OrderDetail setIdProduct(long idProduct) {
         this.idProduct = idProduct;
+        return this;
     }
 
     public String getProductName() {
         return productName;
     }
 
-    public void setProductName(String productName) {
+    public OrderDetail setProductName(String productName) {
         this.productName = productName;
+        return this;
     }
 
     public int getOrdered_quantity() {
         return ordered_quantity;
     }
 
-    public void setOrdered_quantity(int ordered_quantity) {
+    public OrderDetail setOrdered_quantity(int ordered_quantity) {
         this.ordered_quantity = ordered_quantity;
+        return this;
     }
 
-    public int getOrderPrice() {
-        return orderPrice;
+    public int getProductPrice() {
+        return productPrice;
     }
 
-    public void setOrderPrice(int orderPrice) {
-        this.orderPrice = orderPrice;
+    public OrderDetail setProductPrice(int productPrice) {
+        this.productPrice = productPrice;
+        return this;
     }
 
     public String display() {
-        return String.format("%-60s| %15s| %10s", getProductName(), getOrdered_quantity(), getOrderPrice());
+        return String.format("%-60s| %15s| %15s", getProductName(), getOrdered_quantity(), getProductPrice());
+    }
+
+    public String toString() {
+        return String.format("%s,%s,%s", getIdOrderDetail(), getIdProduct(), getOrdered_quantity());
     }
 }

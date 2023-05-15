@@ -1,19 +1,22 @@
 package menu_ct.services;
 
+import menu_ct.input.CovertDate;
+import menu_ct.model.Cart;
+import menu_ct.model.CartDetail;
 import menu_ct.model.Order;
+import menu_ct.output.WriteFile;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class OrderService implements Convert {
-    public static ArrayList<Order> orderList = new ArrayList<>();
+public class OrderService {
     public static OrderDetailService orderDetailService = new OrderDetailService();
+    public static CartService cartService = new CartService();
     public static String path = "data\\order.csv";
+    public static ArrayList<Order> orderList = new ArrayList<>();
 
     public ArrayList<Order> getOrderList() {
         orderList.clear();
@@ -25,10 +28,14 @@ public class OrderService implements Convert {
                 String[] order = line.split(",");
                 long idOrder = Long.parseLong(order[0]);
                 long idUser = Long.parseLong(order[1]);
-                Date orderDate = covertDate(order[2]);
-                long idOrderDetail = Long.parseLong(order[3]);
-                String status = order[4];
-                Order orderInfo = new Order(idOrder, idUser, orderDate, idOrderDetail, status);
+                long idOrderDetail = Long.parseLong(order[2]);
+                String status = order[3];
+                Order orderInfo = new Order()
+                        .setIdOrder(idOrder)
+                        .setIdUser(idUser)
+                        .setOrderDate(new Date(idOrder))
+                        .setIdOrderDetail(idOrderDetail)
+                        .setStatus(status);
                 orderList.add(orderInfo);
                 line = reader.readLine();
             }
@@ -52,8 +59,23 @@ public class OrderService implements Convert {
         return myOrder;
     }
 
-    @Override
-    public Date covertDate(String textDate) throws ParseException {
-        return new SimpleDateFormat("dd-MM-yyyy").parse(textDate);
+    public void newOrderForUser(long idUser) {
+        getOrderList();
+        Cart cart = cartService.getCartListByID(idUser);
+        ArrayList<CartDetail> cartDetailList = cart.getDetailList();
+        long idOrderDetail = orderDetailService.newOrderDetail(cartDetailList);
+
+        Order newOrder = new Order()
+                .setIdUser(idUser)
+                .setIdOrderDetail(idOrderDetail);
+        orderList.add(newOrder);
+        WriteFile.editData(orderList, path);
+    }
+
+    public void finishOrder(int index) {
+        getOrderList();
+        Order order = orderList.get(index - 1);
+        order.setStatus("Hoàn thành");
+        WriteFile.editData(orderList, path);
     }
 }

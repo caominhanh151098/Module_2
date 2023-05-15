@@ -13,7 +13,13 @@ public class UserView {
     static ArrayList<Account> accountList;
     static Scanner scanner = new Scanner(System.in);
 
-    public static void user() {
+    public static void user(Account account) {
+        if (account.getRote() == 0) {
+            adminView();
+        } else staffView(account);
+    }
+
+    public static void adminView() {
         int choice;
         do {
             userService.getUserList();
@@ -55,8 +61,63 @@ public class UserView {
         } while (choice != 0);
     }
 
+    public static void staffView(Account account) {
+        int choice;
+        ClearScreen.clearScreen();
+        do {
+            account.showProfile();
+            ClearScreen.clearScreen(3);
+            System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
+            System.out.printf("⚃\t\t%-40s⚃%n", "Chọn trong các mục");
+            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 1: Chỉnh sửa thông tin cá nhân");
+            System.out.printf("⚃\t\t%-40s⚃%n", "Nhấn 0: Quay lại");
+            System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
+            System.out.print("Enter number: ");
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                choice = -1;
+            }
+            switch (choice) {
+                case 1:
+                    editInfo(account);
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Error! Không nằm trong mục lục. Yêu cầu chọn lại:");
+            }
+        } while (choice != 0);
+    }
+
+    public static void editInfo(Account account) {
+        String password = InputData.getPassword();
+        String name = InputData.getName();
+        Date dob = InputData.getDate();
+        String address = InputData.getAddress();
+        String email = InputData.getEmail();
+        String phoneNum = InputData.getPhoneNum();
+
+        Account accountInfo = new Account()
+                .setId(account.getId())
+                .setUsername(account.getUsername())
+                .setPassword(password)
+                .setName(name)
+                .setRote(account.getRote())
+                .setDob(dob)
+                .setAddress(address)
+                .setEmail(email)
+                .setNumPhone(phoneNum);
+        System.out.printf("Bạn muốn thay đổi thông tin Username: %s?%nPassword: %s|Name: %s|Role: %s | Date or birth: %s, " +
+                        "Address: %s, Email: %s, Phone Number: %s(y/n)",
+                account.getUsername(), password, name, account.getRote(), dob, address, email, phoneNum);
+        if (InputData.choice()) {
+            userService.editUser(accountInfo);
+        }
+    }
+
     public static void showUser() {
-        accountList = userService.accountList;
+        accountList = userService.getUserList();
         System.out.println("-----------------------------------------------------------------");
         int i = 1;
         for (Account account : accountList) {
@@ -85,7 +146,7 @@ public class UserView {
                 .setEmail(email)
                 .setNumPhone(phoneNum);
 
-        System.out.printf("Bạn muốn tạo mới tài khoản này? %s (y/n)",
+        System.out.printf("Bạn muốn tạo mới tài khoản này? %s (y/n): ",
                 accountInfo.info());
         if (InputData.choice()) {
             userService.addUser(accountInfo);
@@ -93,7 +154,7 @@ public class UserView {
     }
 
     public static void editUser() {
-        accountList = userService.accountList;
+        accountList = userService.getUserList();
         System.out.print("Nhập STT Tài khoản cần sửa: ");
         int index = InputData.getIndex(accountList);
         String password = InputData.getPassword();

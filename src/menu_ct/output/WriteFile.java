@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class WriteFile {
     public static <T> void editData(ArrayList<T> listItem, String path) {
-
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(path));
             for (T item : listItem) {
@@ -23,6 +22,5 @@ public class WriteFile {
                 IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 }

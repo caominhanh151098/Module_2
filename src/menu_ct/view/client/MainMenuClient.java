@@ -1,5 +1,6 @@
 package menu_ct.view.client;
 
+import menu_ct.model.CartDetail;
 import menu_ct.view.user.ClearScreen;
 
 import java.util.Scanner;
@@ -7,8 +8,7 @@ import java.util.Scanner;
 public class MainMenuClient {
     public static Scanner scanner = new Scanner(System.in);
 
-//    public static void mainMenuClient(long idUser) {
-    public static void main(String[] args) {
+    public static void mainMenuClient(long idUser) {
         int choice;
         ClearScreen.clearScreen();
         do {
@@ -29,11 +29,16 @@ public class MainMenuClient {
             }
             switch (choice) {
                 case 1:
-//                    AcountView.menuAccount(idUser);
+                    AcountView.menuAccount(idUser);
                     break;
                 case 2:
+                    ShopView.viewShop(idUser);
                     break;
                 case 3:
+                    CartView.cartView(idUser);
+                    break;
+                case 4:
+                    OrderClientView.orderView(idUser);
                     break;
                 case 0:
                     ClearScreen.clearScreen();

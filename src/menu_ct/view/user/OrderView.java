@@ -2,7 +2,6 @@ package menu_ct.view.user;
 
 import menu_ct.input.InputData;
 import menu_ct.model.Order;
-import menu_ct.model.Product;
 import menu_ct.services.OrderService;
 
 import java.util.ArrayList;
@@ -69,7 +68,10 @@ public class OrderView {
     public static void processingOrder() {
         System.out.print("Nhập STT Đơn hàng cần xử lý: ");
         int index = InputData.getIndex(orderService.orderList);
-//        orderService.viewOrderDetail(index);
-
+        System.out.println("Bạn muốn chuyển đơn hàng này thành trạng thái \"Đã hoàn thành\" ? (y/n): ");
+        if (InputData.choice()) {
+            orderService.finishOrder(index);
+            System.out.println("Chuyển trạng thái thành công!");
+        }
     }
 }

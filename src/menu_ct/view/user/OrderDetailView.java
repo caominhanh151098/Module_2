@@ -41,17 +41,16 @@ public class OrderDetailView {
     }
 
     public static void showDetail(int index) {
-        ArrayList<Order> orderList = orderService.getOrderList();;
+        ArrayList<Order> orderList = orderService.getOrderList();
+        ;
 
         long idOrderDetail = orderList.get(index - 1).getIdOrderDetail();
         orderDetailList = orderDetailService.getOrderDetailByID(idOrderDetail);
         System.out.println("___________________________________________________________________________________________________");
         int i = 1;
-        for (OrderDetail orderDetail : orderDetailList) {
-            System.out.printf("|\t%-4s|%s|%n", i, orderDetail.display());
-            i++;
-        }
-        System.out.printf("|\t%-65s| %15s| %10s|%n", "", "Total Price:", orderDetailService.totalPrice);
+        for (OrderDetail orderDetail : orderDetailList)
+            System.out.printf("|\t%-4s|%s|%n", i++, orderDetail.display());
+        System.out.printf("|\t%-65s| %15s| %15s|%n", "", "Total Price:", orderDetailService.totalPrice);
         System.out.println("___________________________________________________________________________________________________");
     }
 }

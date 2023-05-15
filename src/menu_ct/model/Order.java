@@ -6,62 +6,67 @@ import java.util.Date;
 public class Order {
     private long idOrder = System.currentTimeMillis();
     private long idUser;
-    private Date orderDate;
+    private Date orderDate = new Date(idOrder);
     private long idOrderDetail;
-    private String status;
+    private String status = "Chưa xử lý";
 
     public Order() {
-    }
-
-    public Order(long idOrder, long idUser, Date orderDate, long idOrderDetail, String status) {
-        this.idOrder = idOrder;
-        this.idUser = idUser;
-        this.orderDate = orderDate;
-        this.idOrderDetail = idOrderDetail;
-        this.status = status;
     }
 
     public long getIdOrder() {
         return idOrder;
     }
 
-    public void setIdOrder(long idOrder) {
+    public Order setIdOrder(long idOrder) {
         this.idOrder = idOrder;
+        return this;
     }
 
     public long getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(long idUser) {
+    public Order setIdUser(long idUser) {
         this.idUser = idUser;
+        return this;
     }
 
     public String getOrderDate() {
         return new SimpleDateFormat("dd-MM-yyyy").format(orderDate);
     }
 
-    public void setOrderDate(Date orderDate) {
+    public String getDateTime() {
+        return new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a").format(orderDate);
+    }
+
+    public Order setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
+        return this;
     }
 
     public long getIdOrderDetail() {
         return idOrderDetail;
     }
 
-    public void setIdOrderDetail(long idOrderDetail) {
+    public Order setIdOrderDetail(long idOrderDetail) {
         this.idOrderDetail = idOrderDetail;
+        return this;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public Order setStatus(String status) {
         this.status = status;
+        return this;
     }
 
     public String display() {
-        return String.format("%15s|%15s|%-10s|%15s|%15s", getIdOrder(), getIdUser(), getOrderDate(), getIdOrderDetail(), getStatus());
+        return String.format("%15s | %15s | %s | %15s | %15s ", getIdOrder(), getIdUser(), getDateTime(), getIdOrderDetail(), getStatus());
+    }
+
+    public String toString() {
+        return String.format("%s,%s,%s,%s,%s",getIdOrder(),getIdUser(),getOrderDate(),getIdOrderDetail(),getStatus());
     }
 }
