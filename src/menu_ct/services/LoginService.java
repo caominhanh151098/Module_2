@@ -18,7 +18,7 @@ public class LoginService {
                 if (account.getRote() == 0 || account.getRote() == 1) {
                     MainMenuUser.mainMenuAdmin(account);
                 } else
-                    MainMenuClient.mainMenuClient(account.getId());
+                    MainMenuClient.mainMenuClient(account);
                 return true;
             }
         }

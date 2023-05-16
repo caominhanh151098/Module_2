@@ -1,6 +1,5 @@
 package menu_ct.services;
 
-import menu_ct.input.CovertDate;
 import menu_ct.model.Cart;
 import menu_ct.model.CartDetail;
 import menu_ct.model.Order;
@@ -72,9 +71,7 @@ public class OrderService {
         WriteFile.editData(orderList, path);
     }
 
-    public void finishOrder(int index) {
-        getOrderList();
-        Order order = orderList.get(index - 1);
+    public void finishOrder(Order order) {
         order.setStatus("Hoàn thành");
         WriteFile.editData(orderList, path);
     }

@@ -119,7 +119,7 @@ public class Account {
     }
 
     public String display() {
-        return String.format(" %-20s| %-20s| %4s | %15s | %-30s| %-25s| %12s ",
+        return String.format(" %-20s║ %-20s ║ %4s ║ %15s ║ %-30s ║ %-25s ║ %12s ",
                 getUsername(), getName(), getRote(), getDob(), getAddressInfo(), getEmailInfo(), getNumPhone());
     }
 
@@ -127,13 +127,13 @@ public class Account {
         return String.format("Username: %s|Name: %s|Role: %s", getUsername(), getName(), getRote());
     }
 
-    public void showProfile() {
-        System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
-        System.out.printf("❖\t\t%30s%-60s❖%n", "", "--Thông tin cá nhân--");
-        System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
-        System.out.printf("❖\t\t%-15s%-30s%-15s%-30s❖%n", "Username:", this.getUsername(), "Name:", this.getName());
-        System.out.printf("❖\t\t%-15s%-30s%-15s%-30s❖%n", "Date of birth:", this.getDob(), "Address:", this.getAddressInfo());
-        System.out.printf("❖\t\t%-15s%-30s%-15s%-30s❖%n", "Email:", this.getEmailInfo(), "Phone Number:", this.getNumPhone());
-        System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
+    public void showProfile() {;
+        System.out.println("╔═════════════════════════════════════════════════════════════════════════════════════════════════╗");
+        System.out.printf("║\t\t%30s%-60s║%n", "", "--Thông tin cá nhân--");
+        System.out.println("╠═════════════════════════════════════════════════════════════════════════════════════════════════╣");
+        System.out.printf("║\t\t%-15s%-30s%-15s%-30s║%n", "Username:", this.getUsername(), "Name:", this.getName());
+        System.out.printf("║\t\t%-15s%-30s%-15s%-30s║%n", "Date of birth:", this.getDob(), "Address:", this.getAddressInfo());
+        System.out.printf("║\t\t%-15s%-30s%-15s%-30s║%n", "Email:", this.getEmailInfo(), "Phone Number:", this.getNumPhone());
+        System.out.println("╚═════════════════════════════════════════════════════════════════════════════════════════════════╝");
     }
 }

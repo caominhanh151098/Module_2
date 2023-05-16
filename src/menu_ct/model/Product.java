@@ -1,5 +1,7 @@
 package menu_ct.model;
 
+import java.text.DecimalFormat;
+
 public class Product {
     private long idProduct = System.currentTimeMillis();
     private String productName;
@@ -65,6 +67,12 @@ public class Product {
         return price;
     }
 
+    public String showPrice() {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        return formatter.format(price) + " VND";
+
+    }
+
     public Product setPrice(int price) {
         this.price = price;
         return this;
@@ -75,6 +83,6 @@ public class Product {
     }
 
     public String display() {
-        return String.format("\t%-60s|\t%-20s|%5s|%15s", getProductName(), getBrand(), getQuantity(), getPrice());
+        return String.format(" %-60s ║ %-20s ║ %10s ║ %20s ", getProductName(), getBrand(), getQuantity(), showPrice());
     }
 }

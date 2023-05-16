@@ -58,7 +58,7 @@ public class UserService{
 
     public void editUser(int index, Account editAccount) {
         getUserList();
-        accountList.set(index - 1, editAccount);
+        accountList.set(index, editAccount);
         WriteFile.editData(accountList, path);
     }
 

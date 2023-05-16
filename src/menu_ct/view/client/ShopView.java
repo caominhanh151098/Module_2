@@ -10,7 +10,6 @@ import menu_ct.services.ProductService;
 import menu_ct.view.user.ClearScreen;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ShopView {
     static ProductService productService = new ProductService();
@@ -25,7 +24,7 @@ public class ShopView {
             showProduct();
             System.out.println("Chọn STT sản phẩm bạn muốn mua: ");
             System.out.print("Enter number: ");
-            int productIndex = InputData.getIndex(productList) - 1;
+            int productIndex = InputData.getIndex(productList);
             Product choiceProduct = productList.get(productIndex);
             int quantityBuy = InputData.getQuantityBuy(choiceProduct);
             System.out.printf("Bạn muốn mua sản phẩm này (Sản phẩm: %s, số lượng: %s)  (y/n): ", choiceProduct.getProductName(), quantityBuy);
@@ -43,13 +42,15 @@ public class ShopView {
         } while (true);
     }
 
-    public static void showProduct() {
+        public static void showProduct() {
         productList = productService.getProductList();
-        System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
+            System.out.println("╔═══════╦══════════════════════════════════════════════════════════════╦══════════════════════╦════════════╦══════════════════════╗");
+            System.out.printf("║%-7s║ %-60s ║ %-20s ║ %-10s ║ %-20s ║%n", "  STT", "                      Product name", "       Brand", " Quantity", "    Price");
+            System.out.println("╠═══════╬══════════════════════════════════════════════════════════════╬══════════════════════╬════════════╬══════════════════════╣");
         int i = 1;
         for (Product product : productList)
             if (product.getQuantity() > 0)
-                System.out.printf("❖\t%-4s|%s❖%n", i++, product.display());
-        System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
+                System.out.printf("║\t%-4s║%s║%n", i++, product.display());
+            System.out.println("╚═══════╩══════════════════════════════════════════════════════════════╩══════════════════════╩════════════╩═══════════════1═══════╝");
     }
 }

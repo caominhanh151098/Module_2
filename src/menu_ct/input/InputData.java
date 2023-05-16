@@ -58,7 +58,7 @@ public class InputData {
             name = scanner.nextLine();
             if (name.length() > 100) System.out.println("Error! Name quá dài!");
             if (name.equals("")) System.out.println("Error! Name không được rỗng!");
-        } while (name.equals(""));
+        } while (name.equals("") || name.length() > 100);
         return name;
     }
 
@@ -76,6 +76,7 @@ public class InputData {
 
     public static Date getDate() {
         String date;
+        String testDate = null;
         do {
             System.out.print("Nhập ngày sinh(*) (dd-MM-YYYY): ");
             date = scanner.nextLine();
@@ -84,12 +85,19 @@ public class InputData {
                 continue;
             }
             if (Validate.checkDate(date) == false) System.out.println("Ngày không phù hợp! Mời nhập lại!");
-        } while (date.equals("") || Validate.checkDate(date) == false);
-        try {
-            return new SimpleDateFormat("dd-MM-yyyy").parse(date);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+
+            Date result = null;
+            try {
+                result = new SimpleDateFormat("dd-MM-yyyy").parse(date);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            testDate = new SimpleDateFormat("dd-MM-yyyy").format(result);
+            if (!testDate.equals(date))
+                System.out.println("Ngày không phù hợp! Mời nhập lại!");
+            else return result;
+        } while (date.equals("") || Validate.checkDate(date) == false || !testDate.equals(date));
+        return new Date();
     }
 
     public static String getAddress() {
@@ -98,8 +106,8 @@ public class InputData {
             System.out.print("Nhập địa chỉ: ");
             address = scanner.nextLine();
             if (Validate.checkAddress(address) == false)
-                System.out.println("Địa chỉ không nên có ký tự đặt biệt! Mời nhập lại: ");
-        }while (Validate.checkAddress(address) == false);
+                System.out.println("Địa chỉ không nên có ký tự đặt biệt! Mời nhập lại!");
+        } while (Validate.checkAddress(address) == false);
         return address;
     }
 
@@ -147,7 +155,7 @@ public class InputData {
                 System.out.print("Error! Lỗi nhập STT! Yêu cầu nhập lại: ");
             }
         } while (index < 1 || index > accountList.size());
-        return index;
+        return index - 1;
     }
 
     public static String getBrand() {

@@ -63,7 +63,7 @@ public class OrderDetail {
     }
 
     public String display() {
-        return String.format("%-60s| %15s| %15s", getProductName(), getOrdered_quantity(), getProductPrice());
+        return String.format(" %-60s ║ %15s ║ %15s ", getProductName(), getOrdered_quantity(), getProductPrice());
     }
 
     public String toString() {

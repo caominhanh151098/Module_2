@@ -1,6 +1,5 @@
 package menu_ct.services;
 
-import menu_ct.model.Cart;
 import menu_ct.model.CartDetail;
 import menu_ct.model.Product;
 import menu_ct.output.WriteFile;

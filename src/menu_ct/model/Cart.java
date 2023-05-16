@@ -1,5 +1,6 @@
 package menu_ct.model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Cart {
@@ -8,7 +9,8 @@ public class Cart {
     private ArrayList<CartDetail> detailList = new ArrayList<>();
     private long totalPrice;
 
-    public Cart(){}
+    public Cart() {
+    }
 
     public long getIdCart() {
         return idCart;
@@ -41,12 +43,18 @@ public class Cart {
         return totalPrice;
     }
 
+    public String showTotalPrice() {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        return formatter.format(totalPrice) + " VND";
+    }
+
     public Cart setTotalPrice(long totalPrice) {
         this.totalPrice = totalPrice;
         return this;
     }
+
     @Override
     public String toString() {
-        return String.format("%s,%s",getIdCart(),getIdUser());
+        return String.format("%s,%s", getIdCart(), getIdUser());
     }
 }

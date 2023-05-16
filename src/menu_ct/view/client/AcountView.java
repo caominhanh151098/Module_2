@@ -1,5 +1,6 @@
 package menu_ct.view.client;
 
+import menu_ct.input.EditData;
 import menu_ct.input.InputData;
 import menu_ct.model.Account;
 import menu_ct.services.UserService;
@@ -11,14 +12,13 @@ import java.util.Scanner;
 public class AcountView {
     public static Scanner scanner = new Scanner(System.in);
     public static UserService userService = new UserService();
-    public static Account mUser;
+    public static Account myUser;
 
-    public static void menuAccount(long idUser) {
-        mUser = userService.findUserByID(idUser);
+    public static void menuAccount(Account myUser) {
         int choice;
         ClearScreen.clearScreen();
         do {
-            mUser.showProfile();
+            myUser.showProfile();
             ClearScreen.clearScreen(3);
             System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
             System.out.printf("⚃\t\t%-40s⚃%n", "Chọn trong các mục");
@@ -44,26 +44,26 @@ public class AcountView {
     }
 
     public static void editUser() {
-        String password = InputData.getPassword();
-        String name = InputData.getName();
-        Date dob = InputData.getDate();
-        String address = InputData.getAddress();
-        String email = InputData.getEmail();
-        String phoneNum = InputData.getPhoneNum();
+        String password = EditData.getPassword(myUser.getPassword());
+        String name = EditData.getName(myUser.getName());
+        Date dob = EditData.getDate(myUser.getDob());
+        String address = EditData.getAddress(myUser.getAddress());
+        String email = EditData.getEmail(myUser.getEmail());
+        String phoneNum = EditData.getPhoneNum(myUser.getNumPhone());
 
         Account accountInfo = new Account()
-                .setId(mUser.getId())
-                .setUsername(mUser.getUsername())
+                .setId(myUser.getId())
+                .setUsername(myUser.getUsername())
                 .setPassword(password)
                 .setName(name)
-                .setRote(mUser.getRote())
+                .setRote(myUser.getRote())
                 .setDob(dob)
                 .setAddress(address)
                 .setEmail(email)
                 .setNumPhone(phoneNum);
         System.out.printf("Bạn muốn thay đổi thông tin Username: %s?%nPassword: %s|Name: %s|Role: %s | Date or birth: %s, " +
                         "Address: %s, Email: %s, Phone Number: %s(y/n)",
-                mUser.getUsername(), password, name, mUser.getRote(), dob, address, email, phoneNum);
+                myUser.getUsername(), password, name, myUser.getRote(), dob, address, email, phoneNum);
         if (InputData.choice()) {
             userService.editUser(accountInfo);
         }

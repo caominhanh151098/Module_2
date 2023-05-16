@@ -40,17 +40,18 @@ public class OrderDetailView {
         } while (choice != 0);
     }
 
-    public static void showDetail(int index) {
+        public static void showDetail(int index) {
         ArrayList<Order> orderList = orderService.getOrderList();
-        ;
-
-        long idOrderDetail = orderList.get(index - 1).getIdOrderDetail();
+        long idOrderDetail = orderList.get(index).getIdOrderDetail();
         orderDetailList = orderDetailService.getOrderDetailByID(idOrderDetail);
-        System.out.println("___________________________________________________________________________________________________");
+        System.out.println("╔═══════╦══════════════════════════════════════════════════════════════╦═════════════════╦═════════════════╗");
+        System.out.printf("║ %-5s ║ %-60s ║ %-15s ║ %-15s ║%n", " STT", "                     Product Name", "    Quantity", "      Price");
+        System.out.println("╠═══════╬══════════════════════════════════════════════════════════════╬═════════════════╬═════════════════╣");
         int i = 1;
         for (OrderDetail orderDetail : orderDetailList)
-            System.out.printf("|\t%-4s|%s|%n", i++, orderDetail.display());
-        System.out.printf("|\t%-65s| %15s| %15s|%n", "", "Total Price:", orderDetailService.totalPrice);
-        System.out.println("___________________________________________________________________________________________________");
+            System.out.printf("║\t%-4s║%s║%n", i++, orderDetail.display());
+        System.out.println("╠═══════╩══════════════════════════════════════════════════════════════╩═════════════════╬═════════════════╣");
+        System.out.printf("║ %85s  ║ %15s ║%n", "Total Price:  ", orderDetailService.totalPrice);
+        System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════╩═════════════════╝");
     }
 }

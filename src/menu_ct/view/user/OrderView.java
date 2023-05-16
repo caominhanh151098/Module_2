@@ -50,13 +50,15 @@ public class OrderView {
 
     public static void showOrder() {
         orderList = orderService.getOrderList();
-        System.out.println("_____________________________________________________________________________________________________");
+        System.out.println("╔═══════╦═════════════════╦═════════════════╦═══════════════════════════╦═════════════════╦═════════════════╗");
+        System.out.printf("║ %-5s ║ %-15s ║ %-15s ║ %-25s ║ %-15s ║ %-15s ║%n", "  STT", "    ID Order", "    ID User", "       Time Order", "ID OrderDetail", "    Status");
+        System.out.println("╠═══════╬═════════════════╬═════════════════╬═══════════════════════════╬═════════════════╬═════════════════╣");
         int i = 1;
         for (Order order : orderList) {
-            System.out.printf("|\t%-4s|%s|%n", i, order.display());
+            System.out.printf("║\t%-4s║%s║%n", i, order.display());
             i++;
         }
-        System.out.println("_____________________________________________________________________________________________________");
+        System.out.println("╚═══════╩═════════════════╩═════════════════╩═══════════════════════════╩═════════════════╩═════════════════╝");
     }
 
     public static void viewDetail() {
@@ -68,9 +70,14 @@ public class OrderView {
     public static void processingOrder() {
         System.out.print("Nhập STT Đơn hàng cần xử lý: ");
         int index = InputData.getIndex(orderService.orderList);
+        Order order = orderList.get(index);
+        if (order.getStatus().equals("Hoàn thành")) {
+            System.out.println("Đơn hàng này đã ở trạng thái \"Hoàn thành\"!");
+            return;
+        }
         System.out.println("Bạn muốn chuyển đơn hàng này thành trạng thái \"Đã hoàn thành\" ? (y/n): ");
         if (InputData.choice()) {
-            orderService.finishOrder(index);
+            orderService.finishOrder(order);
             System.out.println("Chuyển trạng thái thành công!");
         }
     }

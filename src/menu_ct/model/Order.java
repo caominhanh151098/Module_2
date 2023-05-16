@@ -63,10 +63,10 @@ public class Order {
     }
 
     public String display() {
-        return String.format("%15s | %15s | %s | %15s | %15s ", getIdOrder(), getIdUser(), getDateTime(), getIdOrderDetail(), getStatus());
+        return String.format(" %15s ║ %15s ║ %-25s ║ %15s ║ %15s ", getIdOrder(), getIdUser(), getDateTime(), getIdOrderDetail(), getStatus());
     }
 
     public String toString() {
-        return String.format("%s,%s,%s,%s,%s",getIdOrder(),getIdUser(),getOrderDate(),getIdOrderDetail(),getStatus());
+        return String.format("%s,%s,%s,%s",getIdOrder(),getIdUser(),getIdOrderDetail(),getStatus());
     }
 }

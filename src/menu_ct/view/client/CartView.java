@@ -14,11 +14,13 @@ public class CartView {
     public static CartService cartService = new CartService();
     public static Cart myCart = new Cart();
 
+    public static ArrayList<CartDetail> myCartDetail = new ArrayList<>();
+
     public static void cartView(long idUser) {
         int choice;
         do {
             myCart = cartService.getCartListByID(idUser);
-            ArrayList<CartDetail> myCartDetail = myCart.getDetailList();
+            myCartDetail = myCart.getDetailList();
             if (myCart.getDetailList().isEmpty()) {
                 System.out.println("Giỏ hàng đang trống!");
                 ClearScreen.clearScreen(3);
@@ -39,12 +41,7 @@ public class CartView {
                         System.out.println("Error! Không nằm trong mục lục. Yêu cầu chọn lại:");
                 }
             } else {
-                int i = 1;
-                System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
-                for (CartDetail cartDetail : myCartDetail)
-                    System.out.printf("❖\t%-4s❖%-60s❖%15s❖%15s❖%n", i++, cartDetail.getProductName(), cartDetail.getBuy_quantity(), cartDetail.getProductPrice());
-                System.out.printf("❖\t%-4s❖%-60s❖%15s❖%15s❖%n", "", "", "Total Price: ", myCart.getTotalPrice());
-                System.out.println("❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖❖");
+                showCard();
                 ClearScreen.clearScreen(3);
                 System.out.println("⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃⚃");
                 System.out.printf("⚃\t\t%-40s⚃%n", "Chọn trong các mục");
@@ -73,6 +70,18 @@ public class CartView {
             }
         }
         while (choice != 0);
+    }
+
+        public static void showCard() {
+        int i = 1;
+        System.out.println("╔═══════╦══════════════════════════════════════════════════════════════╦═════════════════╦══════════════════════╗");
+        System.out.printf("║ %-5s ║ %-60s ║ %-15s ║ %-20s ║%n", " STT", "                     Product Name", "    Quantity", "      Price");
+        System.out.println("╠═══════╬══════════════════════════════════════════════════════════════╬═════════════════╬══════════════════════╣");
+        for (CartDetail cartDetail : myCartDetail)
+            System.out.printf("║\t%-4s║ %-60s ║ %15s ║ %20s ║%n", i++, cartDetail.getProductName(), cartDetail.getBuy_quantity(), cartDetail.showPrice());
+        System.out.println("╠═══════╩══════════════════════════════════════════════════════════════╩═════════════════╬══════════════════════╣");
+        System.out.printf("║ %85s  ║ %20s ║%n", "Total Price:  ", myCart.showTotalPrice());
+        System.out.println("╚════════════════════════════════════════════════════════════════════════════════════════╩══════════════════════╝");
     }
 
     public static void confirmCard(long idUser) {

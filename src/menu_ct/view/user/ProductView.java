@@ -1,7 +1,6 @@
 package menu_ct.view.user;
 
 import menu_ct.input.InputData;
-import menu_ct.model.Account;
 import menu_ct.model.Product;
 import menu_ct.services.ProductService;
 
@@ -11,7 +10,6 @@ import java.util.Scanner;
 public class ProductView {
     static ProductService productService = new ProductService();
     static ArrayList<Product> productsList;
-    static Scanner scanner = new Scanner(System.in);
 
     public static void products(int role) {
         if (role == 0) {
@@ -58,15 +56,17 @@ public class ProductView {
         } else System.out.println("Bạn bị giới hạn chức năng này!");
     }
 
-    public static void showProduct() {
+        public static void showProduct() {
         productsList = productService.getProductList();
-        System.out.println("_____________________________________________________________________________________________________");
+        System.out.println("╔═══════╦══════════════════════════════════════════════════════════════╦══════════════════════╦════════════╦══════════════════════╗");
+        System.out.printf("║%-7s║ %-60s ║ %-20s ║ %-10s ║ %-20s ║%n", "  STT", "                      Product name", "       Brand", " Quantity", "    Price");
+        System.out.println("╠═══════╬══════════════════════════════════════════════════════════════╬══════════════════════╬════════════╬══════════════════════╣");
         int i = 1;
         for (Product product : productsList) {
-            System.out.printf("|\t%-4s|%s|%n", i, product.display());
+            System.out.printf("║\t%-4s║%s║%n", i, product.display());
             i++;
         }
-        System.out.println("_____________________________________________________________________________________________________");
+        System.out.println("╚═══════╩══════════════════════════════════════════════════════════════╩══════════════════════╩════════════╩══════════════════════╝");
     }
 
     public static void addProduct() {
@@ -92,7 +92,7 @@ public class ProductView {
         productsList = productService.productList;
         System.out.print("Nhập STT Sản phẩm cần sửa: ");
         int index = InputData.getIndex(productsList);
-        long idProduct = productsList.get(index - 1).getIdProduct();
+        long idProduct = productsList.get(index).getIdProduct();
         String productName = InputData.getName();
         String brand = InputData.getBrand();
         int quantity = InputData.getQuantity();
@@ -116,7 +116,7 @@ public class ProductView {
         productsList = productService.productList;
         int index = InputData.getIndex(productsList);
 
-        String productName = productsList.get(index - 1).getProductName();
+        String productName = productsList.get(index).getProductName();
         System.out.printf("Bạn muốn xóa Product: %s? (y/n)%n", productName);
         if (InputData.choice()) {
             productService.deleteProduct(index);

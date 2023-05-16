@@ -1,5 +1,6 @@
 package menu_ct.view.user;
 
+import menu_ct.input.EditData;
 import menu_ct.input.InputData;
 import menu_ct.model.Account;
 import menu_ct.services.UserService;
@@ -91,12 +92,12 @@ public class UserView {
     }
 
     public static void editInfo(Account account) {
-        String password = InputData.getPassword();
-        String name = InputData.getName();
-        Date dob = InputData.getDate();
-        String address = InputData.getAddress();
-        String email = InputData.getEmail();
-        String phoneNum = InputData.getPhoneNum();
+        String password = EditData.getPassword(account.getPassword());
+        String name = EditData.getName(account.getName());
+        Date dob = EditData.getDate(account.getDob());
+        String address = EditData.getAddress(account.getAddress());
+        String email = EditData.getEmail(account.getEmail());
+        String phoneNum = EditData.getPhoneNum(account.getNumPhone());
 
         Account accountInfo = new Account()
                 .setId(account.getId())
@@ -116,15 +117,17 @@ public class UserView {
         }
     }
 
-    public static void showUser() {
+        public static void showUser() {
         accountList = userService.getUserList();
-        System.out.println("-----------------------------------------------------------------");
+        System.out.println("╔═══════╦═════════════════════╦══════════════════════╦══════╦═════════════════╦════════════════════════════════╦═══════════════════════════╦══════════════╗");
+        System.out.printf("║%-6s ║ %-19s ║ %-20s ║ %4s ║ %-15s ║ %-30s ║ %-25s ║ %-12s ║%n", "  STT", "     Username", "        Name", "Role", "  Day or Birth", "           Address", "         Email", "Phone Number");
+        System.out.println("╠═══════╬═════════════════════╬══════════════════════╬══════╬═════════════════╬════════════════════════════════╬═══════════════════════════╬══════════════╣");
         int i = 1;
         for (Account account : accountList) {
-            System.out.printf("|\t%-4s|%s|%n", i, account.display());
+            System.out.printf("║\t%-4s║%s║%n", i, account.display());
             i++;
         }
-        System.out.println("-----------------------------------------------------------------");
+        System.out.println("╚═══════╩═════════════════════╩══════════════════════╩══════╩═════════════════╩════════════════════════════════╩═══════════════════════════╩══════════════╝");
     }
 
     public static void addUser() {
@@ -157,16 +160,17 @@ public class UserView {
         accountList = userService.getUserList();
         System.out.print("Nhập STT Tài khoản cần sửa: ");
         int index = InputData.getIndex(accountList);
-        String password = InputData.getPassword();
-        String name = InputData.getName();
-        int role = InputData.getRole();
-        Date dob = InputData.getDate();
-        String address = InputData.getAddress();
-        String email = InputData.getEmail();
-        String phoneNum = InputData.getPhoneNum();
+        Account myAccount = accountList.get(index);
+        String password = EditData.getPassword(myAccount.getPassword());
+        String name = EditData.getName(myAccount.getName());
+        int role = EditData.getRole(myAccount.getRote());
+        Date dob = EditData.getDate(myAccount.getDob());
+        String address = EditData.getAddress(myAccount.getAddress());
+        String email = EditData.getEmail(myAccount.getEmail());
+        String phoneNum = EditData.getPhoneNum(myAccount.getNumPhone());
 
-        String username = accountList.get(index - 1).getUsername();
-        Long id = accountList.get(index - 1).getId();
+        String username = myAccount.getUsername();
+        Long id = myAccount.getId();
         Account accountInfo = new Account()
                 .setId(id)
                 .setUsername(username)
@@ -186,11 +190,11 @@ public class UserView {
     }
 
     public static void deleteUser() {
-        accountList = userService.accountList;
+        accountList = userService.getUserList();
         System.out.print("Nhập STT Tài khoản muốn xóa: ");
         int index = InputData.getIndex(accountList);
 
-        String username = accountList.get(index - 1).getUsername();
+        String username = accountList.get(index).getUsername();
         System.out.printf("Bạn muốn xóa Username: %s? (y/n)%n", username);
         if (InputData.choice()) {
             userService.deleteUser(index);
